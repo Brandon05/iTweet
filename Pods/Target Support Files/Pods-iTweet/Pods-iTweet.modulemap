@@ -1,0 +1,6 @@
+framework module Pods_iTweet {
+  umbrella header "Pods-iTweet-umbrella.h"
+
+  export *
+  module * { export * }
+}
