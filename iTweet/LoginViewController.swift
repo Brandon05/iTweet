@@ -29,8 +29,10 @@ class LoginViewController: UIViewController {
         TwitterClient.login { (result) in
             switch result {
             case .success:
-                print("SUCCESS")
-                //self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                TwitterClient.loginGroup.notify(queue: .main, execute: { 
+                    print("SUCCESS")
+                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                })
             case .failure(let error):
                 print(error)
             }

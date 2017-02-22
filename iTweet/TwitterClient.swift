@@ -14,35 +14,30 @@ enum Result<T> {
     case failure(Error)
 }
 
+/////////////////////////
+/// MARK: - SHared Instance, Auth, and Login
+/////////////////////////
+
 class TwitterClient {
+    
+    // Using DispathGroup to notify end of login functions
+    static let loginGroup = DispatchGroup()
     
     // Remove hard coding
     // persist keys in keychain?
     static let sharedInstance = BDBOAuth1SessionManager(baseURL: URL(string: "https://api.twitter.com")!, consumerKey: "M3MvlIFlGV1v3LOIOZL0ayIqn", consumerSecret: "elF0DUKx2ZhPpsSokF7zguocvvxVoRpAm5KQ8SmYRVuQ7MH2GC")
     
-    class func getHomeTimeline(completion: @escaping (Result<[Tweet]>) -> Void) {
-       let _ = TwitterClient.sharedInstance?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
-            
-            guard let dictionaries = response as? [NSDictionary] else {return}
-            
-            // flatMap flattens and maps array of dictionaries
-            let tweets = dictionaries.flatMap(Tweet.init)
-         
-            completion(Result.success(tweets))
-            
-        }, failure: { (task: URLSessionDataTask?, error: Error?) in
-            
-            completion(Result.failure(error!))
-        })
-    }
-    
     class func authUser() {
+        
         let _ = TwitterClient.sharedInstance?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             
             guard let userDictionary = response as? NSDictionary else {return}
             
             let user = User(dictionary: userDictionary)
             print(user)
+            
+            // End of login chain
+            loginGroup.leave()
             
         }, failure: { (task: URLSessionDataTask?, error: Error?) in
             
@@ -52,6 +47,9 @@ class TwitterClient {
     
     class func login(completion: @escaping (Result<Any>) -> Void) {
         TwitterClient.sharedInstance?.deauthorize()
+        
+        // Start of Login chain
+        loginGroup.enter()
         
         TwitterClient.sharedInstance?.fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: URL(string:"iTweet://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential?) in
             
@@ -75,15 +73,14 @@ class TwitterClient {
     }
     
     class func handleOpenURL(_ url: URL) {
-        print(url)
         
-        var instance = BDBOAuth1SessionManager(baseURL: URL(string: "https://api.twitter.com")!, consumerKey: "M3MvlIFlGV1v3LOIOZL0ayIqn", consumerSecret: "elF0DUKx2ZhPpsSokF7zguocvvxVoRpAm5KQ8SmYRVuQ7MH2GC")
         
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         TwitterClient.sharedInstance?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
             
             print("ACCESS TOKEN: \(accessToken!.token)")
             TwitterClient.authUser()
+            
         }, failure: { (error: Error?) in
             
             print("ERROR: \(error)")
@@ -93,6 +90,30 @@ class TwitterClient {
 }
 
 
+/////////////////////////
+/// MARK: - Timeline Function
+/////////////////////////
+
+extension TwitterClient {
+    
+    class func getHomeTimeline(completion: @escaping (Result<[Tweet]>) -> Void) {
+        let _ = TwitterClient.sharedInstance?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+            
+            guard let dictionaries = response as? [NSDictionary] else {return}
+            
+            // flatMap flattens and maps array of dictionaries
+            //let tweets = dictionaries.flatMap {dict in (Tweet.init(dictionary: dict))}
+            let tweets = dictionaries.flatMap(Tweet.init)
+            
+            completion(Result.success(tweets))
+            
+        }, failure: { (task: URLSessionDataTask?, error: Error?) in
+            
+            completion(Result.failure(error!))
+        })
+    }
+    
+}
 
 
 

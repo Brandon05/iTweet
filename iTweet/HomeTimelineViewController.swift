@@ -13,14 +13,14 @@ class HomeTimelineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        TwitterClient.getHomeTimeline { (timeline) in
-//            switch timeline {
-//            case .success(let tweets):
-//                print(tweets)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
+        TwitterClient.getHomeTimeline { (timeline) in
+            switch timeline {
+            case .success(let tweets):
+                print(tweets)
+            case .failure(let error):
+                print(error)
+            }
+        }
         
         
         // Do any additional setup after loading the view.

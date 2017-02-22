@@ -25,7 +25,7 @@ extension Tweet {
         guard
         let text = dictionary["text"] as? String,
         let retweetCount = (dictionary["retweet_count"] as? Int),
-        let favoriteCount = (dictionary["favorites_count"] as? Int),
+        let favoriteCount = (dictionary["favorite_count"] as? Int),
         let timestampString = dictionary["created_at"] as? String
         else {
             return nil
