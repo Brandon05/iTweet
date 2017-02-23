@@ -27,27 +27,30 @@ class TwitterClient {
     // persist keys in keychain?
     static let sharedInstance = BDBOAuth1SessionManager(baseURL: URL(string: "https://api.twitter.com")!, consumerKey: "M3MvlIFlGV1v3LOIOZL0ayIqn", consumerSecret: "elF0DUKx2ZhPpsSokF7zguocvvxVoRpAm5KQ8SmYRVuQ7MH2GC")
     
-    class func authUser() {
+    // Optional completion block
+    class func authUser(completion: @escaping (Result<User>) -> Void = { _ in }) {
         
         let _ = TwitterClient.sharedInstance?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             
             guard let userDictionary = response as? NSDictionary else {return}
             
             let user = User(dictionary: userDictionary)
+            User.currentUser = user
             print(user)
+            completion(Result.success(user!))
             
             // End of login chain
-            loginGroup.leave()
+            //loginGroup.leave()
             
         }, failure: { (task: URLSessionDataTask?, error: Error?) in
-            
+            completion(Result.failure(error!))
             print(error)
         })
     }
     
     class func login(completion: @escaping (Result<Any>) -> Void) {
         TwitterClient.sharedInstance?.deauthorize()
-        
+        print(TwitterClient.sharedInstance?.isAuthorized)
         // Start of Login chain
         loginGroup.enter()
         
@@ -77,13 +80,22 @@ class TwitterClient {
         // TO-DO: - handle crash when user cancels authorization
         // Works but I would like to handle it better !
         let queryString = String(describing: url.query)
+        print(queryString)
         guard !queryString.contains("denied") else {return}
         
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         TwitterClient.sharedInstance?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
             
-            print("ACCESS TOKEN: \(accessToken!.token)")
-            TwitterClient.authUser()
+            print("ACCESS TOKEN: \(accessToken!.token), SECRET: \(accessToken?.secret)")
+            
+            TwitterClient.authUser() { result in
+                switch result {
+                case .success:
+                    loginGroup.leave()
+                case .failure(let error):
+                    print(error)
+                }
+            }
             
         }, failure: { (error: Error?) in
             
@@ -102,7 +114,7 @@ extension TwitterClient {
     
     class func getHomeTimeline(completion: @escaping (Result<[Tweet]>) -> Void) {
         let _ = TwitterClient.sharedInstance?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
-            
+            print(TwitterClient.sharedInstance?.isAuthorized)
             guard let dictionaries = response as? [NSDictionary] else {return}
             
             // flatMap flattens and maps array of dictionaries

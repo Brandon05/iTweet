@@ -12,7 +12,7 @@ class HomeTimelineViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(User.currentUser)
         TwitterClient.getHomeTimeline { (timeline) in
             switch timeline {
             case .success(let tweets):
@@ -37,7 +37,7 @@ class HomeTimelineViewController: UIViewController {
     }
     
     @IBAction func authUser(_ sender: Any) {
-        TwitterClient.authUser()
+        //TwitterClient.authUser()
     }
 
     /*

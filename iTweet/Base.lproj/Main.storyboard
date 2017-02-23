@@ -42,10 +42,10 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Tweet Navigation Controller-->
         <scene sceneID="uWl-3w-H1n">
             <objects>
-                <navigationController id="Y3P-P8-WJU" customClass="NavigationController" customModule="iTweet" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="iTweetNavController" id="Y3P-P8-WJU" customClass="iTweetNavigationController" customModule="iTweet" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HgH-PK-ujI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -61,7 +61,7 @@
         <!--Home Timeline View Controller-->
         <scene sceneID="afG-NS-3RN">
             <objects>
-                <viewController id="gY0-dU-OW3" customClass="HomeTimelineViewController" customModule="iTweet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeTimelineViewController" id="gY0-dU-OW3" customClass="HomeTimelineViewController" customModule="iTweet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oQz-Ut-YxV"/>
                         <viewControllerLayoutGuide type="bottom" id="HYP-1T-V6z"/>

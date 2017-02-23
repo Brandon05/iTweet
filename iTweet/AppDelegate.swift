@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import AFNetworkActivityLogger
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let logger = AFNetworkActivityLogger()
+        logger.startLogging()
+        //TwitterClient.sharedInstance?.deauthorize()
+        if TwitterClient.sharedInstance?.isAuthorized == true {
+        TwitterClient.authUser()
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let iTweetNavControllerVC = storyboard.instantiateViewController(withIdentifier: "iTweetNavController") as? iTweetNavigationController
+        window?.rootViewController = iTweetNavControllerVC
+        }
+        
         return true
     }
 
