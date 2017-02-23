@@ -16,7 +16,7 @@
 		021DCF831E528969001C328C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DCF821E528969001C328C /* User.swift */; };
 		021DCF851E528975001C328C /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DCF841E528975001C328C /* Tweet.swift */; };
 		021DCF871E529846001C328C /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DCF861E529846001C328C /* TwitterClient.swift */; };
-		021DCF891E52AFEA001C328C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DCF881E52AFEA001C328C /* NavigationController.swift */; };
+		021DCF891E52AFEA001C328C /* iTweetNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DCF881E52AFEA001C328C /* iTweetNavController.swift */; };
 		021DCF8B1E52B00D001C328C /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DCF8A1E52B00D001C328C /* HomeTimelineViewController.swift */; };
 		18877A903A5FE06AA9A837D8 /* Pods_iTweet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B58A794C26D471C7435FD18 /* Pods_iTweet.framework */; };
 /* End PBXBuildFile section */
@@ -33,7 +33,7 @@
 		021DCF821E528969001C328C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		021DCF841E528975001C328C /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		021DCF861E529846001C328C /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
-		021DCF881E52AFEA001C328C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		021DCF881E52AFEA001C328C /* iTweetNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTweetNavController.swift; sourceTree = "<group>"; };
 		021DCF8A1E52B00D001C328C /* HomeTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTimelineViewController.swift; sourceTree = "<group>"; };
 		70C4504D8930370CBB4AE768 /* Pods-iTweet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iTweet.release.xcconfig"; path = "Pods/Target Support Files/Pods-iTweet/Pods-iTweet.release.xcconfig"; sourceTree = "<group>"; };
 		8B58A794C26D471C7435FD18 /* Pods_iTweet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iTweet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +82,7 @@
 				021DCF6F1E526FCC001C328C /* iTweet.xcdatamodeld */,
 				021DCF7F1E528906001C328C /* LoginViewController.swift */,
 				021DCF861E529846001C328C /* TwitterClient.swift */,
-				021DCF881E52AFEA001C328C /* NavigationController.swift */,
+				021DCF881E52AFEA001C328C /* iTweetNavController.swift */,
 				021DCF8A1E52B00D001C328C /* HomeTimelineViewController.swift */,
 			);
 			path = iTweet;
@@ -243,7 +243,7 @@
 				021DCF711E526FCC001C328C /* iTweet.xcdatamodeld in Sources */,
 				021DCF8B1E52B00D001C328C /* HomeTimelineViewController.swift in Sources */,
 				021DCF871E529846001C328C /* TwitterClient.swift in Sources */,
-				021DCF891E52AFEA001C328C /* NavigationController.swift in Sources */,
+				021DCF891E52AFEA001C328C /* iTweetNavController.swift in Sources */,
 				021DCF691E526FCC001C328C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
