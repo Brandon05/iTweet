@@ -76,12 +76,13 @@ class TwitterClient {
     }
     
     class func handleOpenURL(_ url: URL) {
-        
+       
         // TO-DO: - handle crash when user cancels authorization
         // Works but I would like to handle it better !
         let queryString = String(describing: url.query)
         print(queryString)
         guard !queryString.contains("denied") else {return}
+
         
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         TwitterClient.sharedInstance?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
