@@ -19,7 +19,7 @@ extension User {
     init?(dictionary: NSDictionary) {
         guard let name = dictionary["name"] as? String,
             let screenname = dictionary["screen_name"] as? String,
-            let profileUrlString = dictionary["profile_image_url_https"] as? String,
+            let profileUrlStringSmall = dictionary["profile_image_url_https"] as? String,
             let tagline = dictionary["description"] as? String
         else {
             return nil
@@ -27,7 +27,11 @@ extension User {
         
         self.name = name
         self.screenname = screenname
+        
+        // returns larger images
+        let profileUrlString = profileUrlStringSmall.replacingOccurrences(of: "_normal", with: "")
         self.profileUrl = URL(string: profileUrlString)!
+        
         self.tagline = tagline
     }
 

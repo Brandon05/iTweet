@@ -19,7 +19,8 @@ extension HomeTimelineViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let tweetCell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TweetCell
+        let tweet = tweets[indexPath.row]
         
-        return tweetCell
+        return tweetCell.bind(tweet)
     }
 }

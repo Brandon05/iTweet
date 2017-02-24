@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import AFNetworking
 
 class TweetCell: UICollectionViewCell {
 
     @IBOutlet var outerView: UIView!
     @IBOutlet var profileImageView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var screennameLabel: UILabel!
+    @IBOutlet var tweetLabel: UILabel!
+    @IBOutlet var timeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,11 +24,17 @@ class TweetCell: UICollectionViewCell {
         
     }
     
-    func bind(_tweet: Tweet) {
+    func bind(_ tweet: Tweet) -> Self {
+        setProfilePic(with: tweet.user.profileUrl!)
+        nameLabel.text = tweet.user.name
+        screennameLabel.text = "@\(tweet.user.screenname!)"
+        tweetLabel.text = tweet.text
+        timeLabel.text = String(describing: tweet.timestamp)
         
+        return self
     }
     
-    func setProfilePic(with image: UIImage) {
+    func setProfilePic(with imageURL: URL) {
         outerView.clipsToBounds = false
         outerView.layer.shadowColor = UIColor.black.cgColor
         outerView.layer.shadowOpacity = 0.38
@@ -32,8 +43,8 @@ class TweetCell: UICollectionViewCell {
         outerView.layer.cornerRadius = profileImageView.frame.width / 2
         outerView.layer.shadowPath = UIBezierPath(roundedRect: outerView.bounds, cornerRadius: profileImageView.frame.width / 2).cgPath
         
-        self.profileImageView.image = image
-        profileImageView.contentMode = .scaleAspectFit
+        self.profileImageView.setImageWith(imageURL)
+        profileImageView.contentMode = .scaleAspectFill
         profileImageView.layer.borderWidth = 3
         profileImageView.layer.borderColor = UIColor.darkGray.cgColor
         profileImageView.clipsToBounds = true
