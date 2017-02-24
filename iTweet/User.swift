@@ -20,7 +20,7 @@ extension User {
         guard let name = dictionary["name"] as? String,
             let screenname = dictionary["screen_name"] as? String,
             let profileUrlString = dictionary["profile_image_url_https"] as? String,
-            let tagline = dictionary["name"] as? String
+            let tagline = dictionary["description"] as? String
         else {
             return nil
         }

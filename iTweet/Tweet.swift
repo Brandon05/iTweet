@@ -14,6 +14,7 @@ struct Tweet {
     var timestamp: Date
     var retweetCount: Int = 0
     var favoriteCount: Int = 0
+    var user: User
     
 }
 
@@ -26,7 +27,8 @@ extension Tweet {
         let text = dictionary["text"] as? String,
         let retweetCount = (dictionary["retweet_count"] as? Int),
         let favoriteCount = (dictionary["favorite_count"] as? Int),
-        let timestampString = dictionary["created_at"] as? String
+        let timestampString = dictionary["created_at"] as? String,
+        let user = dictionary["user"] as? NSDictionary
         else {
             return nil
         }
@@ -34,6 +36,7 @@ extension Tweet {
         self.text = text
         self.retweetCount = retweetCount
         self.favoriteCount = favoriteCount
+        self.user = User(dictionary: user)!
         
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"

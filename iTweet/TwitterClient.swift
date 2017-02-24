@@ -117,7 +117,7 @@ extension TwitterClient {
         let _ = TwitterClient.sharedInstance?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
             print(TwitterClient.sharedInstance?.isAuthorized)
             guard let dictionaries = response as? [NSDictionary] else {return}
-            
+            print(dictionaries[0])
             // flatMap flattens and maps array of dictionaries
             //let tweets = dictionaries.flatMap {dict in (Tweet.init(dictionary: dict))}
             let tweets = dictionaries.flatMap(Tweet.init)

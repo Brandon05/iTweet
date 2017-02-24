@@ -10,20 +10,31 @@ import UIKit
 
 class HomeTimelineViewController: UIViewController {
 
+    @IBOutlet var timelineCollectionView: UICollectionView!
+    
+    var listFlowLayout = ListFlowLayout()
+    
+    var tweets = [Tweet]() {
+        didSet {
+            timelineCollectionView.reloadData()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(User.currentUser)
-        TwitterClient.getHomeTimeline { (timeline) in
-            switch timeline {
-            case .success(let tweets):
-                print(tweets)
-            case .failure(let error):
-                print(error)
-            }
-        }
         
+        timelineCollectionView.delegate = self
+        timelineCollectionView.dataSource = self
+        self.automaticallyAdjustsScrollViewInsets = false
+        timelineCollectionView.collectionViewLayout = listFlowLayout
+        timelineCollectionView.register(TweetCell.self)
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        getCurrentTimeline()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,6 +49,19 @@ class HomeTimelineViewController: UIViewController {
     
     @IBAction func authUser(_ sender: Any) {
         //TwitterClient.authUser()
+    }
+    
+    func getCurrentTimeline() {
+        TwitterClient.getHomeTimeline { (timeline) in
+            switch timeline {
+            case .success(let tweets):
+                //print(tweets)
+                self.tweets = tweets
+                print(tweets[0].user)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     /*
