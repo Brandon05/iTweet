@@ -18,27 +18,44 @@ PODS:
     - AFNetworking/NSURLSession
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
+  - CryptoSwift (0.6.7)
+  - Kanna (2.1.1)
+  - MisterFusion (2.1.0)
+  - URLEmbeddedView (0.7.0):
+    - CryptoSwift (~> 0.6.7)
+    - Kanna (~> 2.1.1)
+    - MisterFusion (~> 2.1.0)
 
 DEPENDENCIES:
   - AFNetworkActivityLogger (from `https://github.com/AFNetworking/AFNetworkActivityLogger.git`, branch `3_0_0`)
   - AFNetworking (~> 3.0)
   - BDBOAuth1Manager (~> 2.0)
+  - URLEmbeddedView (from `https://github.com/marty-suzuki/URLEmbeddedView.git`)
 
 EXTERNAL SOURCES:
   AFNetworkActivityLogger:
     :branch: '3_0_0'
     :git: https://github.com/AFNetworking/AFNetworkActivityLogger.git
+  URLEmbeddedView:
+    :git: https://github.com/marty-suzuki/URLEmbeddedView.git
 
 CHECKOUT OPTIONS:
   AFNetworkActivityLogger:
     :commit: abc565fe804f210dfda3b028c9a64e7c32e44600
     :git: https://github.com/AFNetworking/AFNetworkActivityLogger.git
+  URLEmbeddedView:
+    :commit: 4254dcb33d5aa5f13520f36d85b3415c8111c388
+    :git: https://github.com/marty-suzuki/URLEmbeddedView.git
 
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: e77f68d014becb33c4306a23f56a64906ff72670
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
+  CryptoSwift: 685ae257941e5447474348a2b545583e1a16b573
+  Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
+  MisterFusion: 9f6df9ac06559d21e710510a737f877abec92486
+  URLEmbeddedView: 5ab60f718bb8b8c72e852bf5aa91b095ae74761e
 
-PODFILE CHECKSUM: aff54c3348769875f4c59e03616059192688936a
+PODFILE CHECKSUM: 8a056cfc79b0cea730965acc1579f44a70b9028a
 
 COCOAPODS: 1.2.0

@@ -15,7 +15,7 @@ struct Tweet {
     var retweetCount: Int = 0
     var favoriteCount: Int = 0
     var user: User
-    var displayURL: URL?
+    var displayURL: String?
 }
 
 // Look into using computed values for some of these properties
@@ -41,13 +41,13 @@ extension Tweet {
     let urls = entities["urls"] as? [NSDictionary]
         print(urls)
     
-    var displayURL = URL(string: "")
+    var displayURL = ""
         if urls?.count != 0 {
             print(urls?.count)
     if urls?[0] != nil {
         print(urls?[0])
         print(urls?[0]["url"] as? String)
-    displayURL = URL(string: (urls?[0]["url"] as? String)!)
+    displayURL = urls?[0]["expanded_url"] as! String
         print(displayURL)
         }
         }

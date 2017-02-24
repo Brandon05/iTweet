@@ -92,11 +92,19 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworkActivityLogger/AFNetworkActivityLogger.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/BDBOAuth1Manager/BDBOAuth1Manager.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CryptoSwift/CryptoSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Kanna/Kanna.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MisterFusion/MisterFusion.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/URLEmbeddedView/URLEmbeddedView.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworkActivityLogger/AFNetworkActivityLogger.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/BDBOAuth1Manager/BDBOAuth1Manager.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CryptoSwift/CryptoSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Kanna/Kanna.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MisterFusion/MisterFusion.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/URLEmbeddedView/URLEmbeddedView.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

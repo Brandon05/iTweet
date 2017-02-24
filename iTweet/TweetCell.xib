@@ -57,11 +57,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O5e-N0-HBL">
-                                <rect key="frame" x="130" y="47" width="195" height="100"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cXA-9m-sjC" customClass="URLEmbeddedView" customModule="URLEmbeddedView">
+                                <rect key="frame" x="112" y="45" width="208" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -100,7 +100,7 @@
             </constraints>
             <size key="customSize" width="348" height="181"/>
             <connections>
-                <outlet property="embeddedWebView" destination="O5e-N0-HBL" id="2O4-pX-ZHL"/>
+                <outlet property="embeddedView" destination="cXA-9m-sjC" id="VA9-dw-yFD"/>
                 <outlet property="nameLabel" destination="3eC-K9-eSF" id="R3E-SK-F5O"/>
                 <outlet property="outerView" destination="hMe-L3-BfI" id="PEx-Lx-3lK"/>
                 <outlet property="profileImageView" destination="BqA-nJ-xcu" id="8aR-DX-063"/>

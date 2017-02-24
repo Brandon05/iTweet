@@ -8,8 +8,9 @@
 
 import UIKit
 import AFNetworking
+import URLEmbeddedView
 
-class TweetCell: UICollectionViewCell, UIWebViewDelegate {
+class TweetCell: UICollectionViewCell {
 
     @IBOutlet var outerView: UIView!
     @IBOutlet var profileImageView: UIImageView!
@@ -17,12 +18,12 @@ class TweetCell: UICollectionViewCell, UIWebViewDelegate {
     @IBOutlet var screennameLabel: UILabel!
     @IBOutlet var tweetLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
-    @IBOutlet weak var embeddedWebView: UIWebView!
+    @IBOutlet weak var embeddedView: URLEmbeddedView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        embeddedWebView.delegate = self
+        //embeddedWebView.delegate = self
     }
     
     func bind(_ tweet: Tweet) -> Self {
@@ -32,7 +33,8 @@ class TweetCell: UICollectionViewCell, UIWebViewDelegate {
         tweetLabel.text = tweet.text
         timeLabel.text = String(describing: tweet.timestamp)
         if tweet.displayURL != nil {
-        embeddedWebView.loadRequest(URLRequest(url: tweet.displayURL!))
+            embeddedView.loadURL(tweet.displayURL!)
+        //embeddedWebView.loadRequest(URLRequest(url: tweet.displayURL!))
         }
         
         return self
