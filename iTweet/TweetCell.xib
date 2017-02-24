@@ -40,7 +40,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@Screenname" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BdT-rd-uEf">
-                                <rect key="frame" x="26" y="121" width="82" height="15"/>
+                                <rect key="frame" x="13" y="121" width="103" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -57,6 +57,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O5e-N0-HBL">
+                                <rect key="frame" x="130" y="47" width="195" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -64,7 +69,7 @@
                             <constraint firstItem="BqA-nJ-xcu" firstAttribute="top" secondItem="dXR-tt-ju7" secondAttribute="top" constant="19" id="3ya-9p-lsJ"/>
                             <constraint firstItem="1vm-Li-3x5" firstAttribute="leading" secondItem="BqA-nJ-xcu" secondAttribute="trailing" constant="26" id="8aC-WN-tOt"/>
                             <constraint firstItem="BdT-rd-uEf" firstAttribute="top" secondItem="3eC-K9-eSF" secondAttribute="bottom" constant="4" id="E76-Xl-SKg"/>
-                            <constraint firstItem="1vm-Li-3x5" firstAttribute="leading" secondItem="BdT-rd-uEf" secondAttribute="trailing" constant="22" id="Ljo-OB-vFW"/>
+                            <constraint firstItem="1vm-Li-3x5" firstAttribute="leading" secondItem="BdT-rd-uEf" secondAttribute="trailing" constant="14" id="Ljo-OB-vFW"/>
                             <constraint firstItem="BqA-nJ-xcu" firstAttribute="leading" secondItem="dXR-tt-ju7" secondAttribute="leading" constant="29" id="R87-TP-q0Y"/>
                             <constraint firstAttribute="trailing" secondItem="1vm-Li-3x5" secondAttribute="trailing" constant="8" id="VjN-7G-2f3"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="1vm-Li-3x5" secondAttribute="bottom" constant="8" id="X1m-Zh-3n3"/>
@@ -73,7 +78,7 @@
                             <constraint firstItem="1vm-Li-3x5" firstAttribute="top" secondItem="ZRj-1n-Aq4" secondAttribute="bottom" constant="1" id="dTX-7l-RDT"/>
                             <constraint firstItem="3eC-K9-eSF" firstAttribute="top" secondItem="BqA-nJ-xcu" secondAttribute="bottom" constant="8" id="gb1-Xc-eyZ"/>
                             <constraint firstItem="1vm-Li-3x5" firstAttribute="leading" secondItem="3eC-K9-eSF" secondAttribute="trailing" constant="26" id="h8o-Cf-3BJ"/>
-                            <constraint firstItem="BdT-rd-uEf" firstAttribute="leading" secondItem="dXR-tt-ju7" secondAttribute="leading" constant="26" id="mhn-A0-JLT"/>
+                            <constraint firstItem="BdT-rd-uEf" firstAttribute="leading" secondItem="dXR-tt-ju7" secondAttribute="leading" constant="13" id="mhn-A0-JLT"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BdT-rd-uEf" secondAttribute="bottom" constant="8" id="soJ-ux-LnJ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -95,6 +100,7 @@
             </constraints>
             <size key="customSize" width="348" height="181"/>
             <connections>
+                <outlet property="embeddedWebView" destination="O5e-N0-HBL" id="2O4-pX-ZHL"/>
                 <outlet property="nameLabel" destination="3eC-K9-eSF" id="R3E-SK-F5O"/>
                 <outlet property="outerView" destination="hMe-L3-BfI" id="PEx-Lx-3lK"/>
                 <outlet property="profileImageView" destination="BqA-nJ-xcu" id="8aR-DX-063"/>

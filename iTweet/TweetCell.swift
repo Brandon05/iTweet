@@ -9,7 +9,7 @@
 import UIKit
 import AFNetworking
 
-class TweetCell: UICollectionViewCell {
+class TweetCell: UICollectionViewCell, UIWebViewDelegate {
 
     @IBOutlet var outerView: UIView!
     @IBOutlet var profileImageView: UIImageView!
@@ -17,11 +17,12 @@ class TweetCell: UICollectionViewCell {
     @IBOutlet var screennameLabel: UILabel!
     @IBOutlet var tweetLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
+    @IBOutlet weak var embeddedWebView: UIWebView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        embeddedWebView.delegate = self
     }
     
     func bind(_ tweet: Tweet) -> Self {
@@ -30,6 +31,9 @@ class TweetCell: UICollectionViewCell {
         screennameLabel.text = "@\(tweet.user.screenname!)"
         tweetLabel.text = tweet.text
         timeLabel.text = String(describing: tweet.timestamp)
+        if tweet.displayURL != nil {
+        embeddedWebView.loadRequest(URLRequest(url: tweet.displayURL!))
+        }
         
         return self
     }

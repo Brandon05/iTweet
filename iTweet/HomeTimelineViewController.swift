@@ -57,7 +57,7 @@ class HomeTimelineViewController: UIViewController {
             case .success(let tweets):
                 //print(tweets)
                 self.tweets = tweets
-                print(tweets[0].user)
+                //print(tweets[0].user)
             case .failure(let error):
                 print(error)
             }

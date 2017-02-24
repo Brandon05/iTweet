@@ -9,4 +9,6 @@ target 'iTweet' do
     pod 'AFNetworking', '~> 3.0'
     pod 'BDBOAuth1Manager', '~> 2.0'
     pod 'AFNetworkActivityLogger', git: 'https://github.com/AFNetworking/AFNetworkActivityLogger.git', branch: '3_0_0'
+    
+    #pod 'URLEmbeddedView', '~> 0.7.0'
 end
