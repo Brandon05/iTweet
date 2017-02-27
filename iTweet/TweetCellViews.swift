@@ -30,7 +30,7 @@ class TweetBackgroundView: UIView {
         let context = UIGraphicsGetCurrentContext()!
         
         //// Background Color
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor.green
         self.layer.masksToBounds = false
         
         //// Shadow Declarations
@@ -44,7 +44,7 @@ class TweetBackgroundView: UIView {
         rectanglePath.close()
         context.saveGState()
         context.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
-        UIColor.white.setFill()
+        //UIColor.white.setFill()
         rectanglePath.fill()
         context.restoreGState()
         
@@ -61,9 +61,9 @@ class TweetBackgroundView: UIView {
         shape.shadowOffset = CGSize(width: 0, height: 0)
         shape.shadowPath = rectanglePath.cgPath
         
-        
         self.layer.insertSublayer(shape, at: 0)
         self.clipsToBounds = true
+        
         //self.layer.mask = shape
         //self.layer.addSublayer(shadow)
         //self.layer.anchorPoint = (0.5, 0.5)
@@ -91,15 +91,125 @@ class TweetBackgroundView: UIView {
     }
 }
 
+class blurTweetView: UIVisualEffectView {
+    
+    let shape = CAShapeLayer()
+    let shadow = NSShadow()
+    
+    override init(effect: UIVisualEffect?) {
+        super.init(effect: effect)
+        self.effect = UIBlurEffect(style: .light)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func draw(_ rect: CGRect) {
+        
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()!
+        
+        //// Background Color
+        self.backgroundColor = UIColor.clear
+        self.layer.masksToBounds = false
+        
+        //// Shadow Declarations
+        
+        shadow.shadowColor = UIColor.black.withAlphaComponent(0.28)
+        shadow.shadowOffset = CGSize(width: 0, height: 0)
+        shadow.shadowBlurRadius = 12
+        
+        //// Rectangle Drawing
+        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 5, y: 5, width: self.frame.width - 10, height: self.frame.height - 10), byRoundingCorners: [.topLeft, .bottomRight], cornerRadii: CGSize(width: 60, height: 60))
+        rectanglePath.close()
+        context.saveGState()
+        context.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
+        UIColor.clear.setFill()
+        rectanglePath.fill()
+        context.restoreGState()
+        
+        
+        shape.frame = self.bounds
+        shape.path = rectanglePath.cgPath
+        shape.borderWidth = 5
+        shape.borderColor = UIColor.clear.cgColor
+        shape.fillColor = UIColor.clear.cgColor
+        
+        shape.shadowRadius = 100
+        
+        shape.shadowColor = UIColor.black.withAlphaComponent(0.38).cgColor
+        shape.shadowOffset = CGSize(width: 0, height: 0)
+        shape.shadowPath = rectanglePath.cgPath
+        
+        //////////////////////////////////////
+        
+        let blurEffect = UIBlurEffect(style: .light)
+        self.effect = blurEffect
+
+        let path = UIBezierPath (
+            roundedRect: self.frame,
+            cornerRadius: 0)
+        path.append(rectanglePath.reversing())
+        path.usesEvenOddFillRule = true
+        
+        // Layer covering the blur view
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = rectanglePath.cgPath
+        maskLayer.fillColor = UIColor.white.withAlphaComponent(1).cgColor // color for fill blocking blur view
+        maskLayer.fillRule = kCAFillRuleEvenOdd
+        
+        // Shadow not working
+        maskLayer.shadowRadius = 100
+        
+        maskLayer.shadowColor = UIColor.yellow.withAlphaComponent(1).cgColor
+        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
+        maskLayer.shadowPath = path.cgPath
+
+        /////////////////////////////////////
+        
+        
+        /////////////////////////////////////
+        /////Extra///////////////////////////
+        /////////////////////////////////////
+        
+        let maskView = UIView(frame: self.frame)
+        maskView.backgroundColor = UIColor.black
+        maskView.layer.insertSublayer(shape, at: 0)
+        
+        let shadowLayer = CAShapeLayer()
+        shadowLayer.path = rectanglePath.cgPath
+        shadowLayer.fillColor = UIColor.red.cgColor
+        shadowLayer.frame = self.bounds
+        //shadowLayer.fillRule = kCAFillRuleEvenOdd
+        
+        shadowLayer.shadowRadius = 100
+        
+        shadowLayer.shadowColor = UIColor.black.withAlphaComponent(0.38).cgColor
+        shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
+        shadowLayer.shadowPath = rectanglePath.cgPath
+        
+        let shadowView = UIView(frame: self.frame)
+        shadowView.backgroundColor = UIColor.white
+        shadowView.layer.masksToBounds = false
+        shadowView.clipsToBounds = true
+        shadowView.layer.insertSublayer(maskLayer, at: 0)
+        
+        // Add Layers
+        
+        self.layer.insertSublayer(shape, at: 10)
+        //self.addSubview(TweetBackgroundView(frame: self.frame))
+        //self.insertSubview(maskView, at: 0)
+        
+        // Only layers working
+        self.clipsToBounds = true
+        self.layer.insertSublayer(maskLayer, at: 1)
+    }
+    
+}
+
 class ProfileImageView: UIImageView {
     override func draw(_ rect: CGRect) {
-//        let path = UIBezierPath()
-//        path.addArc(withCenter: CGPoint(x: self.bounds.size.width / 2.0, y: self.bounds.size.height / 2.0), radius: self.bounds.width, startAngle: 0, endAngle: CGFloat(Double.pi * 2.0), clockwise: true)
-//        
-//        let mask = CAShapeLayer()
-//        mask.path = path.cgPath
-//        mask.fillColor = UIColor.blue.cgColor
-//        self.layer.mask = mask
         
         let width = self.frame.width
         let height = self.frame.height
@@ -150,24 +260,24 @@ class ProfileImageView: UIImageView {
         //self.layer.mask = layer2
     }
     
-    func maskImage(image:UIImage, mask:(UIImage))->UIImage{
-        
-        let imageReference = image.cgImage
-        let maskReference = mask.cgImage
-        
-        let imageMask = CGImage(maskWidth: maskReference!.width,
-                                height: maskReference!.height,
-                                bitsPerComponent: maskReference!.bitsPerComponent,
-                                bitsPerPixel: maskReference!.bitsPerPixel,
-                                bytesPerRow: maskReference!.bytesPerRow,
-                                provider: maskReference!.dataProvider!, decode: nil, shouldInterpolate: true)
-        
-        let maskedReference = imageReference!.masking(imageMask!)
-        
-        let maskedImage = UIImage(cgImage:maskedReference!)
-        
-        return maskedImage
-    }
+//    func maskImage(image:UIImage, mask:(UIImage))->UIImage{
+//        
+//        let imageReference = image.cgImage
+//        let maskReference = mask.cgImage
+//        
+//        let imageMask = CGImage(maskWidth: maskReference!.width,
+//                                height: maskReference!.height,
+//                                bitsPerComponent: maskReference!.bitsPerComponent,
+//                                bitsPerPixel: maskReference!.bitsPerPixel,
+//                                bytesPerRow: maskReference!.bytesPerRow,
+//                                provider: maskReference!.dataProvider!, decode: nil, shouldInterpolate: true)
+//        
+//        let maskedReference = imageReference!.masking(imageMask!)
+//        
+//        let maskedImage = UIImage(cgImage:maskedReference!)
+//        
+//        return maskedImage
+//    }
 }
 
 

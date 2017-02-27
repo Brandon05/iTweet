@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeTimelineViewController: UIViewController {
+class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet var timelineCollectionView: UICollectionView!
     
@@ -29,6 +29,10 @@ class HomeTimelineViewController: UIViewController {
         timelineCollectionView.collectionViewLayout = listFlowLayout
         timelineCollectionView.register(TweetCell.self)
         
+        
+        if let flowLayout = timelineCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            //flowLayout.estimatedItemSize = CGSize(width: 200, height: 200)
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -55,7 +59,7 @@ class HomeTimelineViewController: UIViewController {
         TwitterClient.getHomeTimeline { (timeline) in
             switch timeline {
             case .success(let tweets):
-                //print(tweets)
+                print(tweets)
                 self.tweets = tweets
                 //print(tweets[0].user)
             case .failure(let error):
@@ -63,6 +67,12 @@ class HomeTimelineViewController: UIViewController {
             }
         }
     }
+    
+//    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        
+//        return CGSize(width: collectionView.frame.width - 6, height: 300)
+//    }
 
     /*
     // MARK: - Navigation

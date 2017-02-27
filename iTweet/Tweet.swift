@@ -26,29 +26,29 @@ extension Tweet {
     
     init?(dictionary: NSDictionary) {
     let userData = dictionary["user"] as? NSDictionary
-        print(userData)
+        //print(userData)
         
     let user = User(dictionary: userData!)
-        print(user)
+        //print(user)
        
     let entities = dictionary["entities"] as! NSDictionary
-        print(entities)
-        print(entities["urls"])
+        //print(entities)
+        //print(entities["urls"])
         for (key, value) in entities {
-            print("\(key) & \(value)")
+            //print("\(key) & \(value)")
         }
         
     let urls = entities["urls"] as? [NSDictionary]
-        print(urls)
+        //print(urls)
     
     var displayURL = ""
         if urls?.count != 0 {
-            print(urls?.count)
+            //print(urls?.count)
     if urls?[0] != nil {
-        print(urls?[0])
-        print(urls?[0]["url"] as? String)
+        ///print(urls?[0])
+        //print(urls?[0]["url"] as? String)
     displayURL = urls?[0]["expanded_url"] as! String
-        print(displayURL)
+        //print(displayURL)
         }
         }
         

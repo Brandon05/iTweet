@@ -23,4 +23,27 @@ extension HomeTimelineViewController: UICollectionViewDataSource, UICollectionVi
         
         return tweetCell.bind(tweet)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TweetCell
+        
+//        let baseView = UIView(frame: cell.frame)
+//        baseView.frame = cell.contentView.bounds
+//        let blurView = UIVisualEffectView(frame: cell.frame)
+//        blurView.effect = UIVibrancyEffect(blurEffect: UIBlurEffect())
+//        baseView.addSubview(blurView)
+//        //cell.addSubview(baseView)
+//        cell.contentView.addSubview(baseView)
+//        
+//        timelineCollectionView.performBatchUpdates({
+//            self.timelineCollectionView.cellForItem(at: indexPath)
+//        }) { (finished) in
+//
+//        }
+//        cell.contentView.bringSubview(toFront: cell.actionView)
+//        UIView.animate(withDuration: 0.3) { 
+//            cell.actionView.alpha = 1
+//        }
+        //return cell
+    }
 }
