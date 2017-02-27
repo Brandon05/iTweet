@@ -15,7 +15,7 @@ enum Result<T> {
 }
 
 /////////////////////////
-/// MARK: - SHared Instance, Auth, and Login
+/// MARK: - Shared Instance, Auth, and Login
 /////////////////////////
 
 class TwitterClient {
@@ -108,7 +108,7 @@ class TwitterClient {
 
 
 /////////////////////////
-/// MARK: - Timeline Function
+/// MARK: - Timeline Functions
 /////////////////////////
 
 extension TwitterClient {
@@ -132,7 +132,30 @@ extension TwitterClient {
     
 }
 
+extension HomeTimelineViewController {
+    
+    // Network Request
+    func getCurrentTimeline() {
+        TwitterClient.getHomeTimeline { (timeline) in
+            switch timeline {
+            case .success(let tweets):
+                print(tweets)
+                self.tweets = tweets
+                self.refreshControl.endRefreshing()
+            //print(tweets[0].user)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+}
+
+
+///////////////////////////////////
 // MARK:- Retweet and Like Events
+//////////////////////////////////
+
 // Shrink into one func
 extension TwitterClient {
     

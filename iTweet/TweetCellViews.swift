@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
+// MARK:- Background view for Tweet & Actions
 @IBDesignable
 class TweetBackgroundView: UIView {
     
@@ -91,6 +92,9 @@ class TweetBackgroundView: UIView {
     }
 }
 
+
+// NOT IN USE
+// MARK:- Background view for Actions
 class blurTweetView: UIVisualEffectView {
     
     let shape = CAShapeLayer()
@@ -208,6 +212,8 @@ class blurTweetView: UIVisualEffectView {
     
 }
 
+// NOT IN USE
+// MARK:- Background view for Profile picture
 class ProfileImageView: UIImageView {
     override func draw(_ rect: CGRect) {
         
@@ -281,6 +287,7 @@ class ProfileImageView: UIImageView {
 }
 
 
+// NOT IN USE
 @IBDesignable
 class ProfileTweetImageView: UIView {
     

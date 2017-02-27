@@ -24,6 +24,7 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // CollectionView Settings
         timelineCollectionView.delegate = self
         timelineCollectionView.dataSource = self
         self.automaticallyAdjustsScrollViewInsets = false
@@ -35,27 +36,14 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
             //flowLayout.estimatedItemSize = CGSize(width: 200, height: 200)
         }
         
+        //Refresh Control
         addRefreshControl()
         
         // Nav Bar
-        let titleImage = UIImageView(image: #imageLiteral(resourceName: "twitter_white"))
-        let navigationBarHeight = navigationController?.navigationBar.frame.size.height
-        let titleImageIconDimention = (navigationBarHeight ?? 44) * 0.75
-        titleImage.frame = CGRect(x: 0, y: 0, width: titleImageIconDimention, height: titleImageIconDimention)
-        titleImage.contentMode = UIViewContentMode.scaleAspectFit
-        self.navigationItem.titleView = titleImage
+        configureNavBar()
         
 
         // Do any additional setup after loading the view.
-    }
-    
-    func addRefreshControl() {
-        // programatically adding pulltorefresh control, adjust color, call networkRequest()
-        refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(self.onRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
-        timelineCollectionView.insertSubview(refreshControl, at: 0)
-        refreshControl.backgroundColor = UIColor.black.withAlphaComponent(0.8)//UIColor(hexString: "#63AEEB")
-        refreshControl.tintColor = UIColor.white
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +53,6 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        //TwitterClient.authUser()
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,27 +60,11 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func authUser(_ sender: Any) {
-        //TwitterClient.authUser()
-    }
-    
-    func getCurrentTimeline() {
-        TwitterClient.getHomeTimeline { (timeline) in
-            switch timeline {
-            case .success(let tweets):
-                print(tweets)
-                self.tweets = tweets
-                self.refreshControl.endRefreshing()
-                //print(tweets[0].user)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
     func onRefresh(refreshControl: UIRefreshControl) {
         getCurrentTimeline()
     }
+    
+    //MARK:- NavBar
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         print("yes")
@@ -115,4 +86,26 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
     }
     */
 
+}
+
+extension HomeTimelineViewController {
+    //MARK: - Configurations for HomeTimelineViewController
+    
+    func configureNavBar() {
+        let titleImage = UIImageView(image: #imageLiteral(resourceName: "twitter_white"))
+        let navigationBarHeight = navigationController?.navigationBar.frame.size.height
+        let titleImageIconDimention = (navigationBarHeight ?? 44) * 0.75
+        titleImage.frame = CGRect(x: 0, y: 0, width: titleImageIconDimention, height: titleImageIconDimention)
+        titleImage.contentMode = UIViewContentMode.scaleAspectFit
+        self.navigationItem.titleView = titleImage
+    }
+    
+    func addRefreshControl() {
+        // programatically adding pulltorefresh control, adjust color, call networkRequest()
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.onRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        timelineCollectionView.insertSubview(refreshControl, at: 0)
+        refreshControl.backgroundColor = UIColor.black.withAlphaComponent(0.8)//UIColor(hexString: "#63AEEB")
+        refreshControl.tintColor = UIColor.white
+    }
 }

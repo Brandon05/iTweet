@@ -27,47 +27,28 @@ extension Tweet {
     
     
     init?(dictionary: NSDictionary) {
-    let userData = dictionary["user"] as? NSDictionary
-        //print(userData)
-        
-    let user = User(dictionary: userData!)
-        //print(user)
-       
-    let entities = dictionary["entities"] as! NSDictionary
-        //print(entities)
-        //print(entities["urls"])
-        for (key, value) in entities {
-            //print("\(key) & \(value)")
-        }
-        
-    let urls = entities["urls"] as? [NSDictionary]
-        //print(urls)
     
     var displayURL = ""
-        if urls?.count != 0 {
-            //print(urls?.count)
-    if urls?[0] != nil {
-        ///print(urls?[0])
-        //print(urls?[0]["url"] as? String)
-    displayURL = urls?[0]["expanded_url"] as! String
-        //print(displayURL)
-        }
-        }
         
         guard
         let text = dictionary["text"] as? String,
         let retweetCount = (dictionary["retweet_count"] as? Int),
         let favoriteCount = (dictionary["favorite_count"] as? Int),
         let timestampString = dictionary["created_at"] as? String,
-        let id = dictionary["id"] as? Int
-//        let userData = dictionary["user"] as? NSDictionary,
-//        let user = User(dictionary: userData),
-//        let urls = dictionary["entities"] as? NSDictionary,
-//        let entities = urls["urls"] as? NSDictionary,
-//        let displayURL = URL(string: (entities["display_url"] as? String)!)
+        let id = dictionary["id"] as? Int,
+        let userData = dictionary["user"] as? NSDictionary,
+        let user = User(dictionary: userData)
+//        let entities = dictionary["entities"] as! NSDictionary,
+//        let urls = entities["urls"] as? [NSDictionary],
+//        let displayURL = urls?[0]["expanded_url"] as! String
         else {
             return nil
         }
+        
+        // These can be nil, will break guard statement
+//        let entities = dictionary["entities"] as! NSDictionary
+//        let urls = entities["urls"] as? [NSDictionary]
+//        let displayURL = urls?[0]["expanded_url"] as! String
         
         
         self.text = text
@@ -77,9 +58,10 @@ extension Tweet {
         self.displayURL = displayURL
         self.id = id
         
+        // Tweet TimeStamp
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
-        //self.timestamp = formatter.date(from: timestampString)!
         timestamp = formatter.date(from: timestampString)!
         
         // creating time stamp; days, hours, min, seconds
@@ -104,9 +86,32 @@ extension Tweet {
     
 }
 
-extension Tweet {
-    
-//    func arrayFromTweets(dictionaries: [NSDictionary]) -> [Tweet] {
-//        
-//    }
-}
+/////////////////////
+/// MARK:- Original code to check media url
+/////////////////////
+
+//    let userData = dictionary["user"] as? NSDictionary
+//        //print(userData)
+//
+//    let user = User(dictionary: userData!)
+//print(user)
+
+//    let entities = dictionary["entities"] as! NSDictionary
+//        //print(entities)
+//        //print(entities["urls"])
+//        for (key, value) in entities {
+//            //print("\(key) & \(value)")
+//        }
+
+//    let urls = entities["urls"] as? [NSDictionary]
+//print(urls)
+
+//        if urls?.count != 0 {
+//            //print(urls?.count)
+//    if urls?[0] != nil {
+//        ///print(urls?[0])
+//        //print(urls?[0]["url"] as? String)
+//    displayURL = urls?[0]["expanded_url"] as! String
+//        //print(displayURL)
+//        }
+//        }

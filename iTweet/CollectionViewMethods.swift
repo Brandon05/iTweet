@@ -21,22 +21,11 @@ extension HomeTimelineViewController: UICollectionViewDataSource, UICollectionVi
         let tweetCell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TweetCell
         let tweet = tweets[indexPath.row]
         
-//        if UserDefaults.standard.value(forKey: String(describing: tweet.id) + "retweet") as? Bool == true {
-//            tweetCell.retweetButton.normalColor = UIColor.red
-//        }
-//        if UserDefaults.standard.value(forKey: String(describing: tweet.id) + "like") as? Bool == true {
-//            tweetCell.likeButton.normalColor = UIColor.red
-//        }
-
-        
         return tweetCell.bind(tweet)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as TweetCell
         
-//        cell.addActionView()
-//        cell.actionView.isHidden = false
-//        print("here")
     }
 }

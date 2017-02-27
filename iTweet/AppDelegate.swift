@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = iTweetNavControllerVC
         }
         
+        // NAV BAR COLOR
         UINavigationBar.appearance().barTintColor = UIColor.black
         
         return true
