@@ -132,6 +132,73 @@ extension TwitterClient {
     
 }
 
+// MARK:- Retweet and Like Events
+// Shrink into one func
+extension TwitterClient {
+    
+    class func retweetTweet(withID id: Int) {
+        
+        let parameters = ["id" : id]
+        
+        let _ = TwitterClient.sharedInstance?.post("1.1/statuses/retweet/:id.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            if let responseJSON = response as? NSDictionary {
+                print(responseJSON)
+            } else {
+                print(response)
+            }
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print(error)
+        })
+        
+    }
+    
+    class func likeTweet(withID id: Int) {
+        
+        let parameters = ["id" : id]
+        
+        let _ = TwitterClient.sharedInstance?.post("1.1/favorites/create.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            if let responseJSON = response as? NSDictionary {
+                print(responseJSON)
+            } else {
+                print(response)
+            }
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print(error)
+        })
+    }
+    
+    class func unretweetTweet(withID id: Int) {
+        
+        let parameters = ["id" : id]
+        
+        let _ = TwitterClient.sharedInstance?.post("1.1/statuses/unretweet/:id.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            if let responseJSON = response as? NSDictionary {
+                print(responseJSON)
+            } else {
+                print(response)
+            }
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print(error)
+        })
+        
+    }
+    
+    class func unlikeTweet(withID id: Int) {
+        
+        let parameters = ["id" : id]
+        
+        let _ = TwitterClient.sharedInstance?.post("1.1/favorites/destroy.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            if let responseJSON = response as? NSDictionary {
+                print(responseJSON)
+            } else {
+                print(response)
+            }
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print(error)
+        })
+    }
+}
+
 
 
 

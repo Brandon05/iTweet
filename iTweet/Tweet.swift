@@ -12,10 +12,12 @@ struct Tweet {
     
     var text: String
     var timestamp: Date
+    var timestampString: String
     var retweetCount: Int = 0
     var favoriteCount: Int = 0
     var user: User
     var displayURL: String?
+    var id: Int
 }
 
 // Look into using computed values for some of these properties
@@ -56,7 +58,8 @@ extension Tweet {
         let text = dictionary["text"] as? String,
         let retweetCount = (dictionary["retweet_count"] as? Int),
         let favoriteCount = (dictionary["favorite_count"] as? Int),
-        let timestampString = dictionary["created_at"] as? String
+        let timestampString = dictionary["created_at"] as? String,
+        let id = dictionary["id"] as? Int
 //        let userData = dictionary["user"] as? NSDictionary,
 //        let user = User(dictionary: userData),
 //        let urls = dictionary["entities"] as? NSDictionary,
@@ -72,10 +75,30 @@ extension Tweet {
         self.favoriteCount = favoriteCount
         self.user = user!
         self.displayURL = displayURL
+        self.id = id
         
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
-        self.timestamp = formatter.date(from: timestampString)!
+        //self.timestamp = formatter.date(from: timestampString)!
+        timestamp = formatter.date(from: timestampString)!
+        
+        // creating time stamp; days, hours, min, seconds
+        let elapsedTime = NSDate().timeIntervalSince(timestamp)
+        let duration = Int(elapsedTime)
+        
+        if duration / 86400 >= 1 {
+            self.timestampString = String(duration / (360 * 24)) + "d"
+        }
+        else if duration / 3600 >= 1 {
+            self.timestampString = String(duration / 360) + "h"
+            
+        }
+        else if duration / 60 >= 1 {
+            self.timestampString = String(duration / 60) + "min"
+        }
+        else {
+            self.timestampString = String(duration) + "s"
+        }
     }
     
     

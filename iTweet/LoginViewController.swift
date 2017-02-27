@@ -11,11 +11,29 @@ import BDBOAuth1Manager
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet var topConstraint: NSLayoutConstraint!
     @IBOutlet var loginButton: UIButton!
+    @IBOutlet var twitterImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+//        let topConstraint = NSLayoutConstraint(item: self.twitterImageView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 50)
+//        view.addConstraint(topConstraint)
+//        twitterImageView.addConstraint(topConstraint)
+        self.topConstraint.constant = 50
+        
+        //twitterImageView.setNeedsLayout()
+        UIView.animate(withDuration: 1.6, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        }) { (finished: Bool) in
+            UIView.animate(withDuration: 0.4, animations: { 
+                self.loginButton.alpha = 1
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {

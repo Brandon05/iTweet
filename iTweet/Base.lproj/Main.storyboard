@@ -21,20 +21,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJd-cN-lYb">
-                                <rect key="frame" x="16" y="400" width="338" height="73"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Login to Twitter"/>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJd-cN-lYb">
+                                <rect key="frame" x="28" y="298" width="319" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="Hvf-IU-3sk"/>
+                                    <constraint firstAttribute="width" constant="319" id="WSi-74-nbp"/>
+                                </constraints>
+                                <state key="normal" title="Login to Twitter" image="Twitter Login"/>
                                 <connections>
                                     <action selector="onLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MEC-10-ixP"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter_white" translatesAutoresizingMaskIntoConstraints="NO" id="Y1a-C8-avF">
+                                <rect key="frame" x="137" y="283" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="BJb-el-R4T"/>
+                                    <constraint firstAttribute="width" constant="100" id="QJN-01-T0O"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.28627450980392155" green="0.28627450980392155" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Y1a-C8-avF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6bO-Xl-RHn"/>
+                            <constraint firstItem="Y1a-C8-avF" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="263" id="E2o-eO-9cZ"/>
+                            <constraint firstItem="JJd-cN-lYb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FMA-Kx-uOU"/>
+                            <constraint firstItem="JJd-cN-lYb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="NDm-HV-mQj"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="loginButton" destination="JJd-cN-lYb" id="WaL-jn-tOf"/>
+                        <outlet property="topConstraint" destination="E2o-eO-9cZ" id="9tk-6L-rQr"/>
+                        <outlet property="twitterImageView" destination="Y1a-C8-avF" id="LET-sl-D1v"/>
                         <segue destination="Y3P-P8-WJU" kind="presentation" identifier="loginSegue" id="zao-52-5yA"/>
                     </connections>
                 </viewController>
@@ -99,13 +116,7 @@
                             <constraint firstItem="GSi-8k-YNR" firstAttribute="leading" secondItem="sVf-q3-trW" secondAttribute="leading" id="y86-Ol-eO0"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="fDE-QW-Ibi">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="nvU-wg-Bzf">
-                            <connections>
-                                <action selector="authUser:" destination="gY0-dU-OW3" id="qee-Ez-XhX"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="fDE-QW-Ibi"/>
                     <connections>
                         <outlet property="timelineCollectionView" destination="GSi-8k-YNR" id="hhc-Yf-Riy"/>
                     </connections>
@@ -115,4 +126,8 @@
             <point key="canvasLocation" x="1749.5999999999999" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Twitter Login" width="1280" height="209"/>
+        <image name="twitter_white" width="280" height="280"/>
+    </resources>
 </document>

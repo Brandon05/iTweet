@@ -57,7 +57,7 @@ class TweetBackgroundView: UIView {
         
         shape.shadowRadius = 100
         
-        shape.shadowColor = UIColor.black.withAlphaComponent(0.38).cgColor
+        //shape.shadowColor = UIColor.black.withAlphaComponent(0.38).cgColor
         shape.shadowOffset = CGSize(width: 0, height: 0)
         shape.shadowPath = rectanglePath.cgPath
         
@@ -197,7 +197,7 @@ class blurTweetView: UIVisualEffectView {
         
         // Add Layers
         
-        self.layer.insertSublayer(shape, at: 10)
+        //self.layer.insertSublayer(shape, at: 10)
         //self.addSubview(TweetBackgroundView(frame: self.frame))
         //self.insertSubview(maskView, at: 0)
         

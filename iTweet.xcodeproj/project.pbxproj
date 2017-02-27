@@ -26,6 +26,7 @@
 		02B2D37D1E5F9F2000B97A2F /* ListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B2D37C1E5F9F2000B97A2F /* ListFlowLayout.swift */; };
 		02B2D3801E5FA0FA00B97A2F /* CollectionViewMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B2D37F1E5FA0FA00B97A2F /* CollectionViewMethods.swift */; };
 		02B2D3851E5FB28500B97A2F /* TweetCellViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B2D3841E5FB28500B97A2F /* TweetCellViews.swift */; };
+		02DF91B51E63B87F003B56BD /* Source in Resources */ = {isa = PBXBuildFile; fileRef = 02DF91B41E63B87F003B56BD /* Source */; };
 		18877A903A5FE06AA9A837D8 /* Pods_iTweet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B58A794C26D471C7435FD18 /* Pods_iTweet.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		02B2D37C1E5F9F2000B97A2F /* ListFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFlowLayout.swift; sourceTree = "<group>"; };
 		02B2D37F1E5FA0FA00B97A2F /* CollectionViewMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewMethods.swift; sourceTree = "<group>"; };
 		02B2D3841E5FB28500B97A2F /* TweetCellViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCellViews.swift; sourceTree = "<group>"; };
+		02DF91B41E63B87F003B56BD /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Source; path = iTweet/Source; sourceTree = "<group>"; };
 		70C4504D8930370CBB4AE768 /* Pods-iTweet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iTweet.release.xcconfig"; path = "Pods/Target Support Files/Pods-iTweet/Pods-iTweet.release.xcconfig"; sourceTree = "<group>"; };
 		8B58A794C26D471C7435FD18 /* Pods_iTweet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iTweet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97950BCAEACC89CB4978BEE7 /* Pods-iTweet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iTweet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iTweet/Pods-iTweet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		021DCF5C1E526FCC001C328C = {
 			isa = PBXGroup;
 			children = (
+				02DF91B41E63B87F003B56BD /* Source */,
 				021DCF671E526FCC001C328C /* iTweet */,
 				021DCF661E526FCC001C328C /* Products */,
 				3D0837EECD76DBCF36281E11 /* Pods */,
@@ -252,6 +255,7 @@
 				021DCF761E526FCC001C328C /* LaunchScreen.storyboard in Resources */,
 				028FE3A51E629AB6009BD729 /* webPreviewView.xib in Resources */,
 				021DCF731E526FCC001C328C /* Assets.xcassets in Resources */,
+				02DF91B51E63B87F003B56BD /* Source in Resources */,
 				021DCF6E1E526FCC001C328C /* Main.storyboard in Resources */,
 				02B2D3751E5F9E2400B97A2F /* TweetCell.xib in Resources */,
 			);

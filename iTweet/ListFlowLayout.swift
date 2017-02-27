@@ -11,7 +11,7 @@ import UIKit
 
 class ListFlowLayout: UICollectionViewFlowLayout {
     
-    let itemHeight: CGFloat = 200
+    let itemHeight: CGFloat = 150
     
     override init() {
         super.init()

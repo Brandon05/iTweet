@@ -13,4 +13,5 @@ target 'iTweet' do
     pod 'AFNetworkActivityLogger', git: 'https://github.com/AFNetworking/AFNetworkActivityLogger.git', branch: '3_0_0'
     #pod 'URLEmbeddedView', :git => 'https://github.com/marty-suzuki/URLEmbeddedView.git'
     pod 'SwiftLinkPreview'
+    pod 'FaveButton'
 end

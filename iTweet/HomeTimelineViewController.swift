@@ -8,11 +8,12 @@
 
 import UIKit
 
-class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlowLayout {
+class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
 
     @IBOutlet var timelineCollectionView: UICollectionView!
     
     var listFlowLayout = ListFlowLayout()
+    var refreshControl: UIRefreshControl!
     
     var tweets = [Tweet]() {
         didSet {
@@ -33,7 +34,28 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
         if let flowLayout = timelineCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             //flowLayout.estimatedItemSize = CGSize(width: 200, height: 200)
         }
+        
+        addRefreshControl()
+        
+        // Nav Bar
+        let titleImage = UIImageView(image: #imageLiteral(resourceName: "twitter_white"))
+        let navigationBarHeight = navigationController?.navigationBar.frame.size.height
+        let titleImageIconDimention = (navigationBarHeight ?? 44) * 0.75
+        titleImage.frame = CGRect(x: 0, y: 0, width: titleImageIconDimention, height: titleImageIconDimention)
+        titleImage.contentMode = UIViewContentMode.scaleAspectFit
+        self.navigationItem.titleView = titleImage
+        
+
         // Do any additional setup after loading the view.
+    }
+    
+    func addRefreshControl() {
+        // programatically adding pulltorefresh control, adjust color, call networkRequest()
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.onRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        timelineCollectionView.insertSubview(refreshControl, at: 0)
+        refreshControl.backgroundColor = UIColor.black.withAlphaComponent(0.8)//UIColor(hexString: "#63AEEB")
+        refreshControl.tintColor = UIColor.white
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,11 +83,20 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
             case .success(let tweets):
                 print(tweets)
                 self.tweets = tweets
+                self.refreshControl.endRefreshing()
                 //print(tweets[0].user)
             case .failure(let error):
                 print(error)
             }
         }
+    }
+    
+    func onRefresh(refreshControl: UIRefreshControl) {
+        getCurrentTimeline()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("yes")
     }
     
 //    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
