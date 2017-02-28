@@ -67,7 +67,7 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
     //MARK:- NavBar
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("yes")
+        
     }
     
 //    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
