@@ -45,29 +45,28 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
 //        let backgroundview =  TweetBackgroundView(frame: tweetCell.tweetBackgroundView.frame)
 //        tweetCell.tweetBackgroundView.addSubview(backgroundview)
         
-        
+        //tweetCell.contentView.applyMask(withFrame: tweetCell.actionView.frame)
         tweetCell.setNeedsLayout()
         tweetCell.layoutIfNeeded()
         
         return tweetCell.bind(tweet)
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let tweetCell = cell as? TweetTableViewCell
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 5, y: 5, width: cell.frame.width - 10, height: cell.frame.height - 10), byRoundingCorners: [.topRight, .bottomLeft], cornerRadii: CGSize(width: 40, height: 40))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = cell.bounds
-        maskLayer.path = rectanglePath.cgPath
-        //cell.layer.masksToBounds = true
-        //cell.layer.mask = maskLayer
-        //tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-        //tableView.reloadSections(indexPath, with: UITableViewRowAnimation.fade)
-        //tweetCell?.tweetBackgroundView.applyMask()
-        print(cell.subviews)
-        cell.subviews[0].applyMask()
-        //cell.contentView.applyMask()
-        cell.layoutIfNeeded()
-        cell.layoutSubviews()
+        // Need to remove layer from reuseable cell or it will appear twice
+        // TODO:- figure out how to manually remove and redraw layer on custom UIView: TweetBackgroundView
+        cell.subviews[0].layer.sublayers?[0].removeFromSuperlayer()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let tweetCell = cell as! TweetTableViewCell
+        
+        // Need to add layer based on dynamic height
+        // TODO:- figure out how to manually remove and redraw layer on custom UIView: TweetBackgroundView
+        print(cell.layer.sublayers)
+        cell.subviews[0].applyMask(withFrame: tweetCell.tweetBackgroundView.frame)
+        //tweetCell.tweetBackgroundView.layer.sublayers?[0].removeFromSuperlayer()
+
     }
 }

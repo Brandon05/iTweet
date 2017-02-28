@@ -100,6 +100,7 @@ class TweetTableViewCell: UITableViewCell {
         
 //        let backgroundview =  TweetBackgroundView(frame: tweetCell.tweetBackgroundView.frame)
 //        tweetCell.tweetBackgroundView.addSubview(backgroundview)
+        //self.contentView.applyMask(withFrame: actionView.frame)
         self.setNeedsLayout()
         self.layoutIfNeeded()
         self.layoutSubviews()

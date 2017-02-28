@@ -41,7 +41,7 @@ class TweetBackgroundView: UIView {
         shadow.shadowBlurRadius = 4
         
         //// Rectangle Drawing
-        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 5, y: 5, width: self.frame.width - 10, height: self.frame.height - 10), byRoundingCorners: [.topRight, .bottomLeft], cornerRadii: CGSize(width: 40, height: 40))
+        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), byRoundingCorners: [.topRight, .bottomLeft], cornerRadii: CGSize(width: 40, height: 40))
         rectanglePath.close()
         context.saveGState()
         context.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
