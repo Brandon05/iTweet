@@ -70,9 +70,8 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgU-CI-O9J" customClass="TweetBackgroundView" customModule="iTweet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="364" height="171"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1d-EH-Ckb" customClass="FaveButton" customModule="FaveButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1d-EH-Ckb" customClass="FaveButton" customModule="FaveButton">
                                         <rect key="frame" x="115" y="64" width="32" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="Hearts_000000_32"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
@@ -92,9 +91,8 @@
                                             <action selector="onLike:" destination="gTV-IL-0wX" eventType="touchUpInside" id="4cP-iX-THN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GyQ-87-Hzl" customClass="FaveButton" customModule="FaveButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GyQ-87-Hzl" customClass="FaveButton" customModule="FaveButton">
                                         <rect key="frame" x="201" y="64" width="32" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="Retweet_000000_32"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
@@ -114,22 +112,34 @@
                                             <action selector="onRetweet:" destination="gTV-IL-0wX" eventType="touchUpInside" id="oQN-US-JgB"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ghs-JS-kql">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ghs-JS-kql">
                                         <rect key="frame" x="203" y="104" width="29" height="14"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYb-OZ-Drg">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYb-OZ-Drg">
                                         <rect key="frame" x="117" y="104" width="29" height="14"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Ghs-JS-kql" firstAttribute="top" secondItem="GyQ-87-Hzl" secondAttribute="bottom" constant="8" id="3rX-mI-Qvn"/>
+                                    <constraint firstItem="GyQ-87-Hzl" firstAttribute="height" secondItem="d1d-EH-Ckb" secondAttribute="height" id="5qA-EJ-EAQ"/>
+                                    <constraint firstItem="d1d-EH-Ckb" firstAttribute="leading" secondItem="fgU-CI-O9J" secondAttribute="leading" constant="115" id="Ayb-Oa-yzv"/>
+                                    <constraint firstItem="GyQ-87-Hzl" firstAttribute="leading" secondItem="d1d-EH-Ckb" secondAttribute="trailing" constant="54" id="DUk-SF-ahu"/>
+                                    <constraint firstItem="GyQ-87-Hzl" firstAttribute="width" secondItem="d1d-EH-Ckb" secondAttribute="width" id="UDB-Yt-Smu"/>
+                                    <constraint firstItem="GyQ-87-Hzl" firstAttribute="top" secondItem="fgU-CI-O9J" secondAttribute="top" constant="64" id="aE4-cK-OIy"/>
+                                    <constraint firstItem="GYb-OZ-Drg" firstAttribute="centerX" secondItem="d1d-EH-Ckb" secondAttribute="centerX" id="kbx-11-Rjd"/>
+                                    <constraint firstItem="GYb-OZ-Drg" firstAttribute="centerY" secondItem="Ghs-JS-kql" secondAttribute="centerY" id="n4K-Of-szi"/>
+                                    <constraint firstAttribute="bottom" secondItem="GYb-OZ-Drg" secondAttribute="bottom" constant="53" id="nVQ-qX-6kA"/>
+                                    <constraint firstAttribute="trailing" secondItem="GyQ-87-Hzl" secondAttribute="trailing" constant="131" id="sgg-lg-AwO"/>
+                                    <constraint firstItem="d1d-EH-Ckb" firstAttribute="top" secondItem="fgU-CI-O9J" secondAttribute="top" constant="64" id="t6D-lG-fUF"/>
+                                    <constraint firstItem="Ghs-JS-kql" firstAttribute="centerX" secondItem="GyQ-87-Hzl" secondAttribute="centerX" id="w53-vR-Qjo"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
                                         <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -154,6 +164,7 @@
                             <constraint firstAttribute="bottom" secondItem="ZRj-1n-Aq4" secondAttribute="bottom" constant="10" id="bAc-KR-QHR"/>
                             <constraint firstAttribute="trailing" secondItem="ZRj-1n-Aq4" secondAttribute="trailing" constant="10" id="oNo-hH-v3h"/>
                             <constraint firstAttribute="bottom" secondItem="7wW-Dc-GIM" secondAttribute="bottom" id="oWF-7n-iaj"/>
+                            <constraint firstItem="ZRj-1n-Aq4" firstAttribute="top" secondItem="dXR-tt-ju7" secondAttribute="top" constant="149" id="vUp-tL-Emu"/>
                             <constraint firstAttribute="trailing" secondItem="1vm-Li-3x5" secondAttribute="trailing" constant="48" id="x27-AG-Doq"/>
                             <constraint firstAttribute="bottom" secondItem="fgU-CI-O9J" secondAttribute="bottom" id="xSR-Uc-57y"/>
                         </constraints>
@@ -227,10 +238,10 @@
                 <outlet property="retweetButton" destination="GyQ-87-Hzl" id="IAU-35-Scg"/>
                 <outlet property="retweetCountLabel" destination="Ghs-JS-kql" id="jok-oD-kuC"/>
                 <outlet property="screennameLabel" destination="BdT-rd-uEf" id="jYK-24-PZr"/>
-                <outlet property="textLabel" destination="0An-W4-3WV" id="za8-fK-cHi"/>
                 <outlet property="timeLabel" destination="ZRj-1n-Aq4" id="HXU-5R-GBV"/>
                 <outlet property="tweetBackgroundView" destination="dXR-tt-ju7" id="EkV-DC-LuJ"/>
                 <outlet property="tweetLabel" destination="1vm-Li-3x5" id="I1O-6y-uK3"/>
+                <outlet property="urlDescriptionLabel" destination="0An-W4-3WV" id="U8l-mB-X6v"/>
                 <outlet property="urlImageView" destination="MMi-tK-6zy" id="u9i-cF-dq3"/>
                 <outlet property="urlLabel" destination="n9c-ta-PvH" id="jZo-2R-uy9"/>
             </connections>

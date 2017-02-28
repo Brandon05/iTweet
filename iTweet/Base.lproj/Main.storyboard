@@ -107,18 +107,27 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="u9C-z4-TjI">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="GSi-8k-YNR" secondAttribute="trailing" id="7RD-Wo-AgU"/>
+                            <constraint firstAttribute="trailing" secondItem="u9C-z4-TjI" secondAttribute="trailing" id="Ded-ln-Wfk"/>
                             <constraint firstItem="GSi-8k-YNR" firstAttribute="top" secondItem="sVf-q3-trW" secondAttribute="top" constant="64" id="LPk-p1-L7c"/>
+                            <constraint firstItem="u9C-z4-TjI" firstAttribute="top" secondItem="sVf-q3-trW" secondAttribute="top" constant="64" id="MqT-mr-cFm"/>
                             <constraint firstItem="HYP-1T-V6z" firstAttribute="top" secondItem="GSi-8k-YNR" secondAttribute="bottom" id="WrN-8f-Yhp"/>
+                            <constraint firstItem="HYP-1T-V6z" firstAttribute="top" secondItem="u9C-z4-TjI" secondAttribute="bottom" id="aaI-iL-7cm"/>
+                            <constraint firstItem="u9C-z4-TjI" firstAttribute="leading" secondItem="sVf-q3-trW" secondAttribute="leading" id="j0M-T8-n0q"/>
                             <constraint firstItem="GSi-8k-YNR" firstAttribute="leading" secondItem="sVf-q3-trW" secondAttribute="leading" id="y86-Ol-eO0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fDE-QW-Ibi"/>
                     <connections>
                         <outlet property="timelineCollectionView" destination="GSi-8k-YNR" id="hhc-Yf-Riy"/>
+                        <outlet property="timelineTableView" destination="u9C-z4-TjI" id="RJD-Vf-IlF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i8d-cp-tb5" userLabel="First Responder" sceneMemberID="firstResponder"/>

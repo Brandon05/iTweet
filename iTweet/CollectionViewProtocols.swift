@@ -35,7 +35,8 @@ extension NibLoadableView where Self: UIView {
 extension UICollectionViewCell: ReusableView { }
 extension UICollectionViewCell: NibLoadableView { }
 
-
+extension UITableViewCell: ReusableView { }
+extension UITableViewCell: NibLoadableView { }
 
 
 

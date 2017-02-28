@@ -1,8 +1,8 @@
 //
-//  TweetCell.swift
+//  TweetTableViewCell.swift
 //  iTweet
 //
-//  Created by Brandon Sanchez on 2/23/17.
+//  Created by Brandon Sanchez on 2/27/17.
 //  Copyright © 2017 Brandon Sanchez. All rights reserved.
 //
 
@@ -11,11 +11,9 @@ import AFNetworking
 import SwiftLinkPreview
 import FaveButton
 
-class TweetCell: UITableViewCell, FaveButtonDelegate {
+class TweetTableViewCell: UITableViewCell {
     
-
-
-    @IBOutlet var tweetBackgroundView: TweetBackgroundView!
+    @IBOutlet var tweetBackgroundView: UIView!
     @IBOutlet var outerView: UIView!
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
@@ -38,7 +36,7 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
     
     let tap = UITapGestureRecognizer()
     let linkPreview = SwiftLinkPreview()
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -50,7 +48,7 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
         tap.addTarget(self, action: #selector(self.onTap(_:)))
         
         // Initially sends actioView to the back, only way actionView works for now
-        self.sendSubview(toBack: actionView)
+        //self.sendSubview(toBack: actionView)
         actionView.alpha = 0
         
         // Button Delegates
@@ -62,6 +60,12 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
         retweetButton.normalColor = UIColor.black
         likeButton.isSelected = false
         retweetButton.isSelected = false
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
     }
     
     func bind(_ tweet: Tweet) -> Self {
@@ -77,7 +81,7 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
         
         // if there is a url, set up Swift Preview
         if tweet.displayURL != nil && tweet.displayURL != "" {
-           //setSwiftPreview(withTweet: tweet)
+            //setSwiftPreview(withTweet: tweet)
         }
         
         // Configure:- ActionView
@@ -94,6 +98,13 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
         // Set Action Button color
         setDefaultButtonColor()
         
+//        let backgroundview =  TweetBackgroundView(frame: tweetCell.tweetBackgroundView.frame)
+//        tweetCell.tweetBackgroundView.addSubview(backgroundview)
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        self.layoutSubviews()
+        
+        
         return self
     }
     
@@ -109,7 +120,7 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
         }, onError: { (error) in
             print(error)
         })
-
+        
     }
     
     func setDefaultButtonColor() {
@@ -147,7 +158,7 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+        self.layoutIfNeeded()
         //self.frame = CGRect(x: 0, y: self.frame.origin.y, width: self.superview!.frame.size.width, height: self.frame.size.height)
     }
     
@@ -172,9 +183,9 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
     }
     
     // IBAction to present actionView
-    @IBAction func onTapp(_ sender: Any) {
+    @IBAction func onButtonTap(_ sender: Any) {
         self.bringSubview(toFront: actionView)
-        UIView.animate(withDuration: 0.3) { 
+        UIView.animate(withDuration: 0.3) {
             self.actionView.alpha = 1
         }
     }
@@ -185,6 +196,7 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
     }
     
     @IBAction func onLike(_ sender: Any) {
+        
         let likeKey = String(describing: tweetID) + "like"
         let defaults = UserDefaults.standard
         print(defaults.value(forKey: likeKey) as? Bool)
@@ -203,10 +215,11 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
             likeButton.isSelected = false
             removeActionView(withDelay: 0.5)
         }
-        
+
     }
     
     @IBAction func onRetweet(_ sender: Any) {
+        
         let tweetKey = String(describing: tweetID) + "retweet"
         let defaults = UserDefaults.standard
         print(defaults.value(forKey: tweetKey) as? Bool)
@@ -228,15 +241,17 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
         
     }
     
-    
 }
 
-//extension UILabel {
-//    func labelShadows() {
-//        //self.layer.shadowOffset = CGSize(width: 0, height: 0)
-//        self.layer.shadowOpacity = 0.38
-//        self.layer.shadowRadius = 4
-//        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.28).cgColor
-//        self.layer.shadowOffset = CGSize(width: 0, height: 0)
-//    }
-//}
+extension UILabel {
+    func labelShadows() {
+        //self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.layer.shadowOpacity = 0.38
+        self.layer.shadowRadius = 4
+        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.28).cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+    }
+}
+
+    
+

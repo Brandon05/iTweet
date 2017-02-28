@@ -31,7 +31,7 @@ class TweetBackgroundView: UIView {
         let context = UIGraphicsGetCurrentContext()!
         
         //// Background Color
-        self.backgroundColor = UIColor.green
+        self.backgroundColor = UIColor.white
         self.layer.masksToBounds = false
         
         //// Shadow Declarations
@@ -45,7 +45,7 @@ class TweetBackgroundView: UIView {
         rectanglePath.close()
         context.saveGState()
         context.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
-        //UIColor.white.setFill()
+        UIColor.white.setFill()
         rectanglePath.fill()
         context.restoreGState()
         
@@ -54,7 +54,7 @@ class TweetBackgroundView: UIView {
         shape.path = rectanglePath.cgPath
         shape.borderWidth = 5
         shape.borderColor = UIColor.clear.cgColor
-        //shape.fillColor = UIColor.blue.cgColor
+        shape.fillColor = UIColor.white.cgColor
         
         shape.shadowRadius = 100
         
