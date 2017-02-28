@@ -54,7 +54,7 @@ extension Tweet {
         self.text = text
         self.retweetCount = retweetCount
         self.favoriteCount = favoriteCount
-        self.user = user!
+        self.user = user
         self.displayURL = displayURL
         self.id = id
         

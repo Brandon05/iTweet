@@ -69,7 +69,9 @@ class TweetCell: UICollectionViewCell, UIGestureRecognizerDelegate, FaveButtonDe
         //Configure:- TweetView Data
         setProfilePic(with: tweet.user.profileUrl!)
         nameLabel.text = tweet.user.name
+        nameLabel.labelShadows()
         screennameLabel.text = "@\(tweet.user.screenname!)"
+        screennameLabel.labelShadows()
         tweetLabel.text = tweet.text
         timeLabel.text = tweet.timestampString
         
@@ -227,4 +229,14 @@ class TweetCell: UICollectionViewCell, UIGestureRecognizerDelegate, FaveButtonDe
     }
     
     
+}
+
+extension UILabel {
+    func labelShadows() {
+        //self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.layer.shadowOpacity = 0.38
+        self.layer.shadowRadius = 4
+        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.28).cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+    }
 }
