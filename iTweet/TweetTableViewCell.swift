@@ -34,6 +34,7 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet var profileButton: UIButton!
     @IBOutlet weak var webPreviewView: UIView!
     @IBOutlet weak var tweetLabelBottom: NSLayoutConstraint!
+    @IBOutlet var webViewButton: UIButton!
     
     //let myWebPreviewView: webPreviewView = webPreviewView(frame: CGRect(x: 10, y: 100, width: 180, height: 150))
     
@@ -94,7 +95,7 @@ class TweetTableViewCell: UITableViewCell {
         // if there is a url, set up Swift Preview
         if tweet.displayURL != nil && tweet.displayURL != "" {
             //self.contentView.addSubview(webPreviewView)
-            //setSwiftPreview(withTweet: tweet)
+            setSwiftPreview(withTweet: tweet)
             //addNib()
         } else {
             //webPreviewView.removeFromSuperview()
@@ -152,9 +153,11 @@ class TweetTableViewCell: UITableViewCell {
     func setSwiftPreview(withTweet tweet: Tweet) {
         linkPreview.preview(tweet.displayURL, onSuccess: { (result: [String : AnyObject]) in
             let images = result["images"] as? [String]
-            print("IMAGES: - \((URL(string: images![0])!))")
+            //print("IMAGES: - \((URL(string: images![0])!))")
+            if images?.count != 0 {
             let imageURL = URL(string: images![0])!
             self.urlImageView.setImageWith(imageURL)
+            }
             self.urlDescriptionLabel.text = result["description"] as? String
             self.urlLabel.text = result["url"] as? String
         }, onError: { (error) in

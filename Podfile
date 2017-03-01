@@ -14,4 +14,5 @@ target 'iTweet' do
     #pod 'URLEmbeddedView', :git => 'https://github.com/marty-suzuki/URLEmbeddedView.git'
     pod 'SwiftLinkPreview'
     pod 'FaveButton'
+    pod 'Kingfisher', '~> 3.0'
 end

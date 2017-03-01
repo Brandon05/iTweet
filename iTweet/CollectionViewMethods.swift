@@ -56,6 +56,8 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
         
         // Configure webPreviewView if there is a link
         handleWebPreview(for: tweetCell, and: tweet)
+        tweetCell.webViewButton.addGestureRecognizer(self.webViewTapGesture())
+        tweetCell.webViewButton.tag = indexPath.row
         
         return tweetCell.bind(tweet)
     }
@@ -72,13 +74,13 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
 //        }
         print(tweet.displayURL)
         if tweet.displayURL == nil || tweet.displayURL == "" && cell.webPreviewView != nil {
-            //cell.webPreviewView.isHidden = true
-            cell.webPreviewView.removeFromSuperview()
+            cell.webPreviewView.isHidden = true
+            //cell.webPreviewView.removeFromSuperview()
             cell.tweetLabelBottom.constant = 6
         } else {
-            //cell.webPreviewView.isHidden = false
+            cell.webPreviewView.isHidden = false
             //cell.addSubview(webPreviewView)
-            //cell.tweetLabelBottom.constant = 191.5
+            cell.tweetLabelBottom.constant = 191.5
         }
     }
     
@@ -94,9 +96,9 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
         let tweetCell = cell as! TweetTableViewCell
         let tweet = tweets[indexPath.row]
         
-        handleWebPreview(for: tweetCell, and: tweet)
-        tweetCell.setNeedsUpdateConstraints()
-        tweetCell.updateConstraints()
+        //handleWebPreview(for: tweetCell, and: tweet)
+        //tweetCell.setNeedsUpdateConstraints()
+        //tweetCell.updateConstraints()
         
         // Need to add layer based on dynamic height
         // TODO:- figure out how to manually remove and redraw layer on custom UIView: TweetBackgroundView

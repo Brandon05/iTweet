@@ -134,6 +134,16 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
             print(tweets[button.tag])
             //destination.user = tweets[button.tag].user
         }
+        
+        if segue.identifier == "WebSegue" {
+            guard let destination = segue.destination as? UINavigationController,
+                let webVC = destination.viewControllers[0] as? ModalWebViewController,
+                let button = sender as? UIButton
+                else { return }
+            print(button.tag)
+            print(tweets[button.tag])
+            webVC.urlString = tweets[button.tag].displayURL!
+        }
     }
  
 
@@ -155,10 +165,20 @@ extension HomeTimelineViewController {
     }
     
     func longPress(_ sender: UILongPressGestureRecognizer) {
-        print(sender.view)
+        //print(sender.view)
         if sender.state == .began {
         self.performSegue(withIdentifier: "TweetDetailSegue", sender: sender.view)
         }
+    }
+    
+    func webViewTapGesture() -> UITapGestureRecognizer {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(HomeTimelineViewController.onTap(_:)))
+        
+        return tap
+    }
+    
+    func onTap(_ sender: UITapGestureRecognizer) {
+        self.performSegue(withIdentifier: "WebSegue", sender: sender.view)
     }
 }
 
