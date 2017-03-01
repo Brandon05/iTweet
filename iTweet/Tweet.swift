@@ -46,9 +46,11 @@ extension Tweet {
         }
         
         // These can be nil, will break guard statement
-//        let entities = dictionary["entities"] as! NSDictionary
-//        let urls = entities["urls"] as? [NSDictionary]
-//        let displayURL = urls?[0]["expanded_url"] as! String
+        let entities = dictionary["entities"] as! NSDictionary
+        let urls = entities["urls"] as? [NSDictionary]
+        if urls?.count != 0 {
+        displayURL = urls?[0]["expanded_url"] as! String
+        }
         
         
         self.text = text

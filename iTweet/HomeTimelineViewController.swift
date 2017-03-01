@@ -8,13 +8,15 @@
 
 import UIKit
 
-class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet var timelineCollectionView: UICollectionView!
     @IBOutlet var timelineTableView: UITableView!
     
     var listFlowLayout = ListFlowLayout()
     var refreshControl: UIRefreshControl!
+    
+    //let longPress = UILongPressGestureRecognizer(target: self, action: #selector(HomeTimelineViewController.onLongPress(_:)))
     
     var tweets = [Tweet]() {
         didSet {
@@ -52,6 +54,11 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
             //flowLayout.estimatedItemSize = CGSize(width: 200, height: 200)
         }
         
+        // TweetCell Gesture Delegate & Target
+        //longPress.delegate = self
+        //longPress.addTarget(self, action: #selector(HomeTimelineViewController.onLongPress(_:)))
+        //longPress.minimumPressDuration = 0.2
+        
         //Refresh Control
         addRefreshControl()
         
@@ -76,6 +83,13 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
         let range = Range(uncheckedBounds: (lower: 0, upper: self.timelineTableView.numberOfSections))
         self.timelineTableView.reloadSections(IndexSet(integersIn: range), with: .none)
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        timelineTableView.layoutSubviews()
+//        timelineTableView.setNeedsUpdateConstraints()
+//        timelineTableView.updateConstraints()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -98,20 +112,59 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
 //        return CGSize(width: collectionView.frame.width - 6, height: 300)
 //    }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "ProfileSegue" {
+            guard let destination = segue.destination as? ProfileViewController,
+                let button = sender as? UIButton
+                else { return }
+            print(button.tag)
+            print(tweets[button.tag])
+            destination.user = tweets[button.tag].user
+        }
+        
+        if segue.identifier == "TweetDetailSegue" {
+            guard let destination = segue.destination as? TweetDetailViewController,
+                let button = sender as? UIButton
+                else { return }
+            print(button.tag)
+            print(tweets[button.tag])
+            //destination.user = tweets[button.tag].user
+        }
     }
-    */
+ 
 
 }
 
+// MARK:- TweetCell Segue Events
+
 extension HomeTimelineViewController {
-    //MARK: - Configurations for HomeTimelineViewController
+    // Profile picture and screenname targets
+    func profileButtonsTapped(_ sender: UIButton!) {
+        self.performSegue(withIdentifier: "ProfileSegue", sender: sender)
+    }
+    
+    // Long Press Target for actionView UILongPressGestureRecognizer
+    func longPressGesture() -> UILongPressGestureRecognizer {
+        let lpg = UILongPressGestureRecognizer(target: self, action: #selector(HomeTimelineViewController.longPress(_:)))
+        lpg.minimumPressDuration = 0.2
+        return lpg
+    }
+    
+    func longPress(_ sender: UILongPressGestureRecognizer) {
+        print(sender.view)
+        if sender.state == .began {
+        self.performSegue(withIdentifier: "TweetDetailSegue", sender: sender.view)
+        }
+    }
+}
+
+//MARK: - Configurations for HomeTimelineViewController
+
+extension HomeTimelineViewController {
     
     func configureNavBar() {
         let titleImage = UIImageView(image: #imageLiteral(resourceName: "twitter_white"))
@@ -132,51 +185,4 @@ extension HomeTimelineViewController {
     }
 }
 
-extension UIView {
-    
-    func applyMask(withFrame frame: CGRect) {
-        let shape = CAShapeLayer()
-        let shadow = NSShadow()
-        
-        let desiredWidth = self.frame.width - (self.frame.width - (frame.width))
-        let desiredHeight = self.frame.height - (self.frame.height - (frame.height))
-        
-        //// General Declarations
-        //let context = UIGraphicsGetCurrentContext()!
-        
-        //// Background Color
-        self.backgroundColor = UIColor.white
-        self.layer.masksToBounds = false
-        
-        //// Shadow Declarations
-        
-        shadow.shadowColor = UIColor.black.withAlphaComponent(0.28)
-        shadow.shadowOffset = CGSize(width: 0, height: 1)
-        shadow.shadowBlurRadius = 4
-        
-        //// Rectangle Drawing //frame.origin.x, y: frame.origin.y, width: desiredWidth, height: desiredHeight
-        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: frame.origin.x, y: frame.origin.y, width: desiredWidth, height: desiredHeight), byRoundingCorners: [.topRight, .bottomLeft], cornerRadii: CGSize(width: 40, height: 40))
-        rectanglePath.close()
-        //context.saveGState()
-        //context.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
-        UIColor.white.setFill()
-        rectanglePath.fill()
-        //context.restoreGState()
-        
-        
-        shape.frame = self.bounds
-        shape.path = rectanglePath.cgPath
-        shape.borderWidth = 5
-        shape.borderColor = UIColor.clear.cgColor
-        shape.fillColor = UIColor.red.cgColor
-        
-        shape.shadowRadius = 4
-        shape.shadowOpacity = 1
-        shape.shadowColor = UIColor.black.withAlphaComponent(0.38).cgColor
-        shape.shadowOffset = CGSize(width: 0, height: 0)
-        shape.shadowPath = rectanglePath.cgPath
-        
-        self.layer.insertSublayer(shape, at: 0)
-        self.clipsToBounds = true
-    }
-}
+

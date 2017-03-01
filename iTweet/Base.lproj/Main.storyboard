@@ -128,11 +128,49 @@
                     <connections>
                         <outlet property="timelineCollectionView" destination="GSi-8k-YNR" id="hhc-Yf-Riy"/>
                         <outlet property="timelineTableView" destination="u9C-z4-TjI" id="RJD-Vf-IlF"/>
+                        <segue destination="19Y-dL-K7h" kind="show" identifier="ProfileSegue" id="zWx-vC-5fq"/>
+                        <segue destination="XKI-FX-o38" kind="show" identifier="TweetDetailSegue" id="cb0-XO-2kC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i8d-cp-tb5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1749.5999999999999" y="138.98050974512745"/>
+        </scene>
+        <!--Tweet Detail View Controller-->
+        <scene sceneID="P7N-Or-amG">
+            <objects>
+                <viewController id="XKI-FX-o38" customClass="TweetDetailViewController" customModule="iTweet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ISB-0U-Thp"/>
+                        <viewControllerLayoutGuide type="bottom" id="Klz-Hh-opQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZDh-Vq-e4j">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7sq-bI-JIF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2606" y="-144"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="01m-Xh-SSW">
+            <objects>
+                <viewController id="19Y-dL-K7h" customClass="ProfileViewController" customModule="iTweet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L2H-RR-IQv"/>
+                        <viewControllerLayoutGuide type="bottom" id="JCh-ey-IYU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hq1-9D-3ts">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ghO-nz-ez6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2607" y="507"/>
         </scene>
     </scenes>
     <resources>

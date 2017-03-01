@@ -14,6 +14,7 @@ import FaveButton
 class TweetTableViewCell: UITableViewCell {
     
     @IBOutlet var tweetBackgroundView: UIView!
+    @IBOutlet var tweetButtonOverlay: UIButton!
     @IBOutlet var outerView: UIView!
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
@@ -29,12 +30,18 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet var retweetButton: FaveButton!
     @IBOutlet var likeCountLabel: UILabel!
     @IBOutlet var retweetCountLabel: UILabel!
+    @IBOutlet var screennameButton: UIButton!
+    @IBOutlet var profileButton: UIButton!
+    
+    let myWebPreviewView: webPreviewView = webPreviewView(frame: CGRect(x: 10, y: 100, width: 180, height: 150))
     
     var tweetID = Int()
     var retweetCount = Int()
     var likeCount = Int()
     
-    let tap = UITapGestureRecognizer()
+    let actionViewTap = UITapGestureRecognizer()
+    let tweetButtonOverlayTap = UITapGestureRecognizer()
+    
     let linkPreview = SwiftLinkPreview()
 
     override func awakeFromNib() {
@@ -43,9 +50,12 @@ class TweetTableViewCell: UITableViewCell {
         
         self.tweetLabel.preferredMaxLayoutWidth = 200
         
-        // Tap Gesture recognizer for actionView
-        tap.delegate = self
-        tap.addTarget(self, action: #selector(self.onTap(_:)))
+        // Tap and long press Gesture recognizer for actionView
+        actionViewTap.delegate = self
+        actionViewTap.addTarget(self, action: #selector(self.onTap(_:)))
+        tweetButtonOverlayTap.delegate = self
+        tweetButtonOverlayTap.addTarget(self, action: #selector(self.onButtonTap(_:)))
+        tweetButtonOverlay.addGestureRecognizer(tweetButtonOverlayTap)
         
         // Initially sends actioView to the back, only way actionView works for now
         //self.sendSubview(toBack: actionView)
@@ -82,11 +92,12 @@ class TweetTableViewCell: UITableViewCell {
         // if there is a url, set up Swift Preview
         if tweet.displayURL != nil && tweet.displayURL != "" {
             //setSwiftPreview(withTweet: tweet)
+            //addNib()
         }
         
         // Configure:- ActionView
         actionView.isUserInteractionEnabled = true
-        actionView.addGestureRecognizer(tap)
+        actionView.addGestureRecognizer(actionViewTap)
         
         // Configure:- Action Button Variables
         self.tweetID = tweet.id
@@ -107,6 +118,27 @@ class TweetTableViewCell: UITableViewCell {
         
         
         return self
+    }
+    
+    func addNib() {
+        print(self.subviews.count)
+        
+        self.tweetBackgroundView.addSubview(myWebPreviewView)
+        
+    }
+    
+    override func updateConstraints() {
+        super.updateConstraints()
+        
+        // NSLayoutConstraints
+        let topConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: NSLayoutAttribute.top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 230)
+        let bottomConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 30)
+        let leadingConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 50)
+        let trailingConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 50)
+        
+        let constraints: [NSLayoutConstraint] = [topConstraint, bottomConstraint, leadingConstraint, trailingConstraint]
+        
+        //myWebPreviewView.addConstraints(constraints)
     }
     
     // Sets up the data for Swift Preview class
@@ -160,8 +192,12 @@ class TweetTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layoutIfNeeded()
+//        self.setNeedsUpdateConstraints()
+//        self.updateConstraints()
         //self.frame = CGRect(x: 0, y: self.frame.origin.y, width: self.superview!.frame.size.width, height: self.frame.size.height)
     }
+    
+    
     
     func removeActionView(withDelay delay: Double) {
         UIView.animate(withDuration: 0.3, delay: delay, options: [], animations: {
@@ -178,13 +214,16 @@ class TweetTableViewCell: UITableViewCell {
         }
     }
     
-    // Target for actionView UITapGestureRecognizer
+    // Tap Target for actionView UITapGestureRecognizer
     func onTap(_ sender: UITapGestureRecognizer) {
         removeActionView(withDelay: 0)
     }
     
+    
+    
     // IBAction to present actionView
-    @IBAction func onButtonTap(_ sender: Any) {
+    func onButtonTap(_ sender: UITapGestureRecognizer) {
+        print("TAPPED")
         self.bringSubview(toFront: actionView)
         UIView.animate(withDuration: 0.3) {
             self.actionView.alpha = 1

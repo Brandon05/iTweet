@@ -39,24 +39,30 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Configure cell and data
         let tweetCell = tableView.dequeueReusableCell(forIndexPath: indexPath) as TweetTableViewCell
         let tweet = tweets[indexPath.row]
         
-//        let backgroundview =  TweetBackgroundView(frame: tweetCell.tweetBackgroundView.frame)
-//        tweetCell.tweetBackgroundView.addSubview(backgroundview)
+        // Add targets to profile buttons
+        tweetCell.profileButton.addTarget(self, action: #selector(HomeTimelineViewController.profileButtonsTapped(_:)), for: .touchUpInside)
+        tweetCell.profileButton.tag = indexPath.row
+        tweetCell.screennameButton.addTarget(self, action: #selector(HomeTimelineViewController.profileButtonsTapped(_:)), for: .touchUpInside)
+        tweetCell.screennameButton.tag = indexPath.row
         
-        //tweetCell.contentView.applyMask(withFrame: tweetCell.actionView.frame)
-        tweetCell.setNeedsLayout()
-        tweetCell.layoutIfNeeded()
+        // Add Targets for segue to TweetDetailViewController
+        //tweetCell.actionView.addGestureRecognizer(longPress)
+        tweetCell.tweetButtonOverlay.addGestureRecognizer(self.longPressGesture())
+        tweetCell.tweetButtonOverlay.tag = indexPath.row
         
         return tweetCell.bind(tweet)
     }
+    
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         // Need to remove layer from reuseable cell or it will appear twice
         // TODO:- figure out how to manually remove and redraw layer on custom UIView: TweetBackgroundView
-        cell.subviews[0].layer.sublayers?[0].removeFromSuperlayer()
+        //cell.subviews[0].layer.sublayers?[0].removeFromSuperlayer()
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -64,8 +70,8 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
         
         // Need to add layer based on dynamic height
         // TODO:- figure out how to manually remove and redraw layer on custom UIView: TweetBackgroundView
-        print(cell.layer.sublayers)
-        cell.subviews[0].applyMask(withFrame: tweetCell.tweetBackgroundView.frame)
+        //print(cell.layer.sublayers)
+        //cell.subviews[0].applyMask(withFrame: tweetCell.tweetBackgroundView.frame)
         //tweetCell.tweetBackgroundView.layer.sublayers?[0].removeFromSuperlayer()
 
     }

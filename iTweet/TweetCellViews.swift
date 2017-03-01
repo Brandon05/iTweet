@@ -92,6 +92,57 @@ class TweetBackgroundView: UIView {
     }
 }
 
+//MARK:- Seperate extension, same as layer above but can be applied to any view
+
+extension UIView {
+    
+    func applyMask(withFrame frame: CGRect) {
+        let shape = CAShapeLayer()
+        let shadow = NSShadow()
+        
+        let desiredWidth = self.frame.width - (self.frame.width - (frame.width))
+        let desiredHeight = self.frame.height - (self.frame.height - (frame.height))
+        
+        //// General Declarations
+        //let context = UIGraphicsGetCurrentContext()!
+        
+        //// Background Color
+        self.backgroundColor = UIColor.white
+        self.layer.masksToBounds = false
+        
+        //// Shadow Declarations
+        
+        shadow.shadowColor = UIColor.black.withAlphaComponent(0.28)
+        shadow.shadowOffset = CGSize(width: 0, height: 1)
+        shadow.shadowBlurRadius = 4
+        
+        //// Rectangle Drawing //frame.origin.x, y: frame.origin.y, width: desiredWidth, height: desiredHeight
+        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: frame.origin.x, y: frame.origin.y, width: desiredWidth, height: desiredHeight), byRoundingCorners: [.topRight, .bottomLeft], cornerRadii: CGSize(width: 40, height: 40))
+        rectanglePath.close()
+        //context.saveGState()
+        //context.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
+        UIColor.white.setFill()
+        rectanglePath.fill()
+        //context.restoreGState()
+        
+        
+        shape.frame = self.bounds
+        shape.path = rectanglePath.cgPath
+        shape.borderWidth = 5
+        shape.borderColor = UIColor.clear.cgColor
+        shape.fillColor = UIColor.red.cgColor
+        
+        shape.shadowRadius = 4
+        shape.shadowOpacity = 1
+        shape.shadowColor = UIColor.black.withAlphaComponent(0.38).cgColor
+        shape.shadowOffset = CGSize(width: 0, height: 0)
+        shape.shadowPath = rectanglePath.cgPath
+        
+        self.layer.insertSublayer(shape, at: 0)
+        self.clipsToBounds = true
+    }
+}
+
 
 // NOT IN USE
 // MARK:- Background view for Actions
