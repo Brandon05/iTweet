@@ -22,8 +22,8 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
         didSet {
             //timelineCollectionView.reloadData()
             timelineTableView.reloadData()
-            let range = Range(uncheckedBounds: (lower: 0, upper: self.timelineTableView.numberOfSections))
-            self.timelineTableView.reloadSections(IndexSet(integersIn: range), with: .none)
+            //let range = Range(uncheckedBounds: (lower: 0, upper: self.timelineTableView.numberOfSections))
+            //self.timelineTableView.reloadSections(IndexSet(integersIn: range), with: .none)
         }
     }
 
@@ -47,7 +47,7 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
         
         // Self-sizing magic!
         self.timelineTableView.rowHeight = UITableViewAutomaticDimension
-        self.timelineTableView.estimatedRowHeight = 200 //Set this to any value that works for you.
+        self.timelineTableView.estimatedRowHeight = 250 //Set this to any value that works for you.
         
         
         if let flowLayout = timelineCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -80,8 +80,8 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let range = Range(uncheckedBounds: (lower: 0, upper: self.timelineTableView.numberOfSections))
-        self.timelineTableView.reloadSections(IndexSet(integersIn: range), with: .none)
+        //let range = Range(uncheckedBounds: (lower: 0, upper: self.timelineTableView.numberOfSections))
+        //self.timelineTableView.reloadSections(IndexSet(integersIn: range), with: .none)
     }
     
     override func viewDidLayoutSubviews() {

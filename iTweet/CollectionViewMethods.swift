@@ -54,7 +54,32 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
         tweetCell.tweetButtonOverlay.addGestureRecognizer(self.longPressGesture())
         tweetCell.tweetButtonOverlay.tag = indexPath.row
         
+        // Configure webPreviewView if there is a link
+        handleWebPreview(for: tweetCell, and: tweet)
+        
         return tweetCell.bind(tweet)
+    }
+    
+    func handleWebPreview(for cell: TweetTableViewCell, and tweet: Tweet) {
+        // if there is a url, set up Swift Preview
+//        if tweet.displayURL != nil && tweet.displayURL != "" {
+//            //self.contentView.addSubview(webPreviewView)
+//            //setSwiftPreview(withTweet: tweet)
+//            //addNib()
+//        } else {
+//            cell.webPreviewView.removeFromSuperview()
+//            cell.tweetLabelBottom.constant = 6
+//        }
+        print(tweet.displayURL)
+        if tweet.displayURL == nil || tweet.displayURL == "" && cell.webPreviewView != nil {
+            //cell.webPreviewView.isHidden = true
+            cell.webPreviewView.removeFromSuperview()
+            cell.tweetLabelBottom.constant = 6
+        } else {
+            //cell.webPreviewView.isHidden = false
+            //cell.addSubview(webPreviewView)
+            //cell.tweetLabelBottom.constant = 191.5
+        }
     }
     
     
@@ -67,6 +92,11 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let tweetCell = cell as! TweetTableViewCell
+        let tweet = tweets[indexPath.row]
+        
+        handleWebPreview(for: tweetCell, and: tweet)
+        tweetCell.setNeedsUpdateConstraints()
+        tweetCell.updateConstraints()
         
         // Need to add layer based on dynamic height
         // TODO:- figure out how to manually remove and redraw layer on custom UIView: TweetBackgroundView

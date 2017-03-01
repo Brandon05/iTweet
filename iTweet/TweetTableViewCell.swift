@@ -32,8 +32,10 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet var retweetCountLabel: UILabel!
     @IBOutlet var screennameButton: UIButton!
     @IBOutlet var profileButton: UIButton!
+    @IBOutlet weak var webPreviewView: UIView!
+    @IBOutlet weak var tweetLabelBottom: NSLayoutConstraint!
     
-    let myWebPreviewView: webPreviewView = webPreviewView(frame: CGRect(x: 10, y: 100, width: 180, height: 150))
+    //let myWebPreviewView: webPreviewView = webPreviewView(frame: CGRect(x: 10, y: 100, width: 180, height: 150))
     
     var tweetID = Int()
     var retweetCount = Int()
@@ -91,8 +93,12 @@ class TweetTableViewCell: UITableViewCell {
         
         // if there is a url, set up Swift Preview
         if tweet.displayURL != nil && tweet.displayURL != "" {
+            //self.contentView.addSubview(webPreviewView)
             //setSwiftPreview(withTweet: tweet)
             //addNib()
+        } else {
+            //webPreviewView.removeFromSuperview()
+            //tweetLabelBottom.constant = 6
         }
         
         // Configure:- ActionView
@@ -112,9 +118,10 @@ class TweetTableViewCell: UITableViewCell {
 //        let backgroundview =  TweetBackgroundView(frame: tweetCell.tweetBackgroundView.frame)
 //        tweetCell.tweetBackgroundView.addSubview(backgroundview)
         //self.contentView.applyMask(withFrame: actionView.frame)
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
-        self.layoutSubviews()
+        
+//        self.setNeedsLayout()
+//        self.layoutIfNeeded()
+//        self.layoutSubviews()
         
         
         return self
@@ -123,7 +130,7 @@ class TweetTableViewCell: UITableViewCell {
     func addNib() {
         print(self.subviews.count)
         
-        self.tweetBackgroundView.addSubview(myWebPreviewView)
+        //self.tweetBackgroundView.addSubview(myWebPreviewView)
         
     }
     
@@ -131,12 +138,12 @@ class TweetTableViewCell: UITableViewCell {
         super.updateConstraints()
         
         // NSLayoutConstraints
-        let topConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: NSLayoutAttribute.top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 230)
-        let bottomConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 30)
-        let leadingConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 50)
-        let trailingConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 50)
-        
-        let constraints: [NSLayoutConstraint] = [topConstraint, bottomConstraint, leadingConstraint, trailingConstraint]
+//        let topConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: NSLayoutAttribute.top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 230)
+//        let bottomConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 30)
+//        let leadingConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 50)
+//        let trailingConstraint = NSLayoutConstraint(item: myWebPreviewView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 50)
+//        
+//        let constraints: [NSLayoutConstraint] = [topConstraint, bottomConstraint, leadingConstraint, trailingConstraint]
         
         //myWebPreviewView.addConstraints(constraints)
     }
