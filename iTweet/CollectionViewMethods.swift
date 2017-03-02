@@ -55,14 +55,26 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
         tweetCell.tweetButtonOverlay.tag = indexPath.row
         
         // Configure webPreviewView if there is a link
-        //handleWebPreview(for: tweetCell, and: tweet)
+//        handleWebPreview(for: tweetCell, and: tweet) { result in
+//            switch result {
+//            case .success(let data):
+//                print("INDEX PATH: \(indexPath)")
+//                print("urlLabel: \(tweetCell.urlLabel.text), mediaURLString: \(tweet.mediaUrlString)")
+//                if tweetCell.urlLabel.text != tweet.mediaUrlString {
+//                //tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//            
+//        }
         tweetCell.webViewButton.addGestureRecognizer(self.webViewTapGesture())
         tweetCell.webViewButton.tag = indexPath.row
         
         return tweetCell.bind(tweet)
     }
     
-    func handleWebPreview(for cell: TweetTableViewCell, and tweet: Tweet) {
+    func handleWebPreview(for cell: TweetTableViewCell, and tweet: Tweet, completion: @escaping (Result<Any>) -> Void) {
         // if there is a url, set up Swift Preview
 //        if tweet.displayURL != nil && tweet.displayURL != "" {
 //            //self.contentView.addSubview(webPreviewView)
@@ -77,11 +89,20 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
             cell.webPreviewView.isHidden = true
             //cell.webPreviewView.removeFromSuperview()
             cell.tweetLabelBottom.constant = 6
+            completion(Result.success("finished"))
         } else {
             cell.webPreviewView.isHidden = false
             //cell.addSubview(webPreviewView)
             cell.tweetLabelBottom.constant = 191.5
-            setSwiftPreview(for: cell, withTweet: tweet)
+            setSwiftPreview(for: cell, withTweet: tweet) { result in
+                switch result {
+                    case .success(let data):
+                    //tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                    completion(Result.success("finished"))
+                    case .failure(let error):
+                    print(error)
+                }
+            }
         }
     }
     
@@ -96,7 +117,7 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let tweetCell = cell as! TweetTableViewCell
         let tweet = tweets[indexPath.row]
-        
+        //tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         //handleWebPreview(for: tweetCell, and: tweet)
         //tweetCell.setNeedsUpdateConstraints()
         //tweetCell.updateConstraints()

@@ -104,8 +104,9 @@ extension SwiftLinkPreview {
         //print(explosion)
         let pieces = explosion.filter({ $0.trim.isValidURL() })
         //print(pieces)
-        let piece = pieces[0]
+        guard pieces.count != 0 else { return nil }
         
+        let piece = pieces[0]
         if let url = URL(string: piece) {
             
             return url

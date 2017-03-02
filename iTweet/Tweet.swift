@@ -23,12 +23,13 @@ struct Tweet {
     var mediaUrlString: String?
     //var media: Media?
     var id: Int
+    var entities: NSDictionary?
+    var urls: [NSDictionary]?
 }
 
 // Look into using computed values for some of these properties
 
 extension Tweet {
-    
     
     
     init?(dictionary: NSDictionary) {
@@ -37,7 +38,7 @@ extension Tweet {
         var mediaImageUrl: URL? = nil
         var mediaDescription: String? = nil
         var mediaUrlString: String? = nil
-        let linkPreview = SwiftLinkPreview()
+        
         
         guard
         let text = dictionary["text"] as? String,
@@ -55,31 +56,46 @@ extension Tweet {
         }
         
         // These can be nil, will break guard statement
-        let entities = dictionary["entities"] as! NSDictionary
-        let urls = entities["urls"] as? [NSDictionary]
+        self.entities = dictionary["entities"] as! NSDictionary
+        self.urls = entities?["urls"] as? [NSDictionary]
         if urls?.count != 0 {
         displayURL = urls?[0]["expanded_url"] as! String
-            linkPreview.preview(displayURL, onSuccess: { (result: [String : AnyObject]) in
-                DispatchQueue.main.async {
-                    
-                    let images = result["images"] as? [String]
-                    //print("IMAGES: - \((URL(string: images![0])!))")
-                    if images?.count != 0 {
-                        mediaImageUrl = URL(string: images![0])!
-                        //self.urlImageView.setImageWith(imageURL)
-                        //            self.urlImageView.kf.indicatorType = .activity
-                        //            self.urlImageView.kf.setImage(with: imageURL, options: [.transition(.fade(0.2))])
-                        //self.urlImageView.af_setImage(withURL: imageURL)
-                    }
-                    mediaDescription = result["description"] as? String
-                    mediaUrlString = result["url"] as? String
-                    print(mediaImageUrl)
-                    print(mediaDescription)
-                    print(mediaUrlString)
-                }
-            }, onError: { (error) in
-                print(error)
-            })
+            
+//            // submit a task to the queue for background execution
+//            DispatchQueue.global(qos: .background).async {
+//            linkPreview.preview(displayURL, onSuccess: { (result: [String : AnyObject]) in
+//                DispatchQueue.main.async {
+//                    
+//                    let images = result["images"] as? [String]
+//                    //print("IMAGES: - \((URL(string: images![0])!))")
+//                    if images?.count != 0 {
+//                        mediaImageUrl = URL(string: images![0])!
+//                        //self.urlImageView.setImageWith(imageURL)
+//                        //            self.urlImageView.kf.indicatorType = .activity
+//                        //            self.urlImageView.kf.setImage(with: imageURL, options: [.transition(.fade(0.2))])
+//                        //self.urlImageView.af_setImage(withURL: imageURL)
+//                    }
+//                    mediaDescription = result["description"] as? String
+//                    mediaUrlString = result["url"] as? String
+//                    print(mediaImageUrl)
+//                    print(mediaDescription)
+//                    print(mediaUrlString)
+//                    self.mediaImageUrl = mediaImageUrl
+//                    self.mediaDescription = mediaDescription
+//                    self.mediaUrlString = mediaUrlString
+//                }
+//            }, onError: { (error) in
+//                print(error)
+//            })
+//        }
+//            setUpPreview(withLink: displayURL, completion: { (result) in
+//                switch result {
+//                case .success(let imageUrl):
+//                    //self.mediaImageUrl = imageUrl as! URL
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            })
         }
         
         
@@ -89,9 +105,9 @@ extension Tweet {
         self.user = user
         self.displayURL = displayURL
         self.id = id
-        self.mediaImageUrl = mediaImageUrl
-        self.mediaDescription = mediaDescription
-        self.mediaUrlString = mediaUrlString
+//        self.mediaImageUrl = mediaImageUrl
+//        self.mediaDescription = mediaDescription
+//        self.mediaUrlString = mediaUrlString
         
         // Tweet TimeStamp
         
@@ -118,6 +134,39 @@ extension Tweet {
         }
     }
     
+    mutating func setUpPreview(withLink link: String, completion: @escaping (Result<Any>)-> Void) {
+        let linkPreview = SwiftLinkPreview()
+        var mediaImageUrl: URL? = nil
+        //let displayURL = urls?[0]["expanded_url"] as! String
+        // submit a task to the queue for background execution
+        DispatchQueue.global(qos: .background).async {
+            linkPreview.preview(link, onSuccess: { (result: [String : AnyObject]) in
+                DispatchQueue.main.async {
+                    
+                    let images = result["images"] as? [String]
+                    //print("IMAGES: - \((URL(string: images![0])!))")
+                    if images?.count != 0 {
+                        mediaImageUrl = URL(string: images![0])!
+                        //self.urlImageView.setImageWith(imageURL)
+                        //            self.urlImageView.kf.indicatorType = .activity
+                        //            self.urlImageView.kf.setImage(with: imageURL, options: [.transition(.fade(0.2))])
+                        //self.urlImageView.af_setImage(withURL: imageURL)
+                    }
+                    let mediaDescription = result["description"] as? String
+                    let mediaUrlString = result["url"] as? String
+                    print(mediaImageUrl)
+                    print(mediaDescription)
+                    print(mediaUrlString)
+//                    self.mediaImageUrl = mediaImageUrl
+//                    self.mediaDescription = mediaDescription
+//                    self.mediaUrlString = mediaUrlString
+                    completion(Result.success(mediaImageUrl))
+                }
+            }, onError: { (error) in
+                print(error)
+            })
+    }
+    }
     
 }
 

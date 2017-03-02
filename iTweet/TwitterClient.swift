@@ -8,6 +8,7 @@
 
 import Foundation
 import BDBOAuth1Manager
+import SwiftLinkPreview
 
 enum Result<T> {
     case success(T)
@@ -120,9 +121,26 @@ extension TwitterClient {
             //print(dictionaries)
             // flatMap flattens and maps array of dictionaries
             //let tweets = dictionaries.flatMap {dict in (Tweet.init(dictionary: dict))}
-            let tweets = dictionaries.flatMap(Tweet.init)
             
-            completion(Result.success(tweets))
+            // Get web preview
+            //let displayUrl = dictionaries.flatMap { return $0[""] }
+            //setUpWebPreview(with: <#T##String#>, completion: <#T##(Result<NSMutableDictionary>) -> Void#>)
+            
+            // Initial array of tweets before web preview data
+            let tweetArray = dictionaries.flatMap(Tweet.init)
+            
+            // Set up async web preview data
+            setUpWebPreview(with: tweetArray, completion: { (result) in
+                switch result {
+                case .success(let tweets):
+                    // Return new tweet array with web preview data
+                    completion(Result.success(tweets))
+                case .failure(let error):
+                    completion(Result.failure(error))
+                }
+            })
+            
+            
             
         }, failure: { (task: URLSessionDataTask?, error: Error?) in
             
@@ -130,6 +148,52 @@ extension TwitterClient {
         })
     }
     
+}
+
+extension TwitterClient {
+    class func setUpWebPreview(with tweetArray: [Tweet], completion: @escaping (Result<[Tweet]>) -> Void) {
+        let linkPreview = SwiftLinkPreview()
+        let mutableDictionary = [NSMutableDictionary]()
+        var tweets = [Tweet]()
+        
+        for i in tweetArray {
+            var tweet = i
+        //if tweet.urls?.count != 0 {
+            //tweet.displayURL = tweet.urls?[0]["expanded_url"] as! String
+            print(tweet.displayURL)
+        linkPreview.preview(tweet.displayURL, onSuccess: { (result: [String : AnyObject]) in
+            DispatchQueue.main.async {
+                
+                let images = result["images"] as? [String]
+                
+                if images?.count != 0 {
+                    tweet.mediaImageUrl = URL(string: images![0])!
+                }
+                tweet.mediaDescription = result["description"] as? String
+                tweet.mediaUrlString = result["url"] as? String
+                
+                tweets.append(tweet)
+                print(tweets.count)
+                if tweets.count == 10 {
+                completion(Result.success(tweets))
+                }
+            }
+            
+        }, onError: { (error) in
+            print(error)
+            completion(Result.failure(error))
+        })
+            
+            
+            
+//        } else {
+//            tweets.append(tweet)
+//        }
+            //completion(Result.success(tweets))
+        }
+        
+        
+    }
 }
 
 extension HomeTimelineViewController {

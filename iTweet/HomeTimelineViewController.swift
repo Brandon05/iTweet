@@ -211,7 +211,7 @@ extension HomeTimelineViewController {
 
 extension HomeTimelineViewController {
     // Sets up the data for Swift Preview class
-    func setSwiftPreview(for cell: TweetTableViewCell, withTweet tweet: Tweet) {
+    func setSwiftPreview(for cell: TweetTableViewCell, withTweet tweet: Tweet, completion: @escaping (Result<Any>) -> Void) {
         linkPreview.preview(tweet.displayURL, onSuccess: { (result: [String : AnyObject]) in
             DispatchQueue.main.async {
                 
@@ -225,10 +225,12 @@ extension HomeTimelineViewController {
                 }
                 cell.urlDescriptionLabel.text = result["description"] as? String
                 cell.urlLabel.text = result["url"] as? String
+                completion(Result.success("done"))
                 
             }
         }, onError: { (error) in
             print(error)
+            completion(Result.failure(error))
         })
         
     }

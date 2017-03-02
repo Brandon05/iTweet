@@ -188,8 +188,11 @@ class TweetTableViewCell: UITableViewCell {
         guard let mediaImageUrl = tweet.mediaImageUrl,
             let mediaDescription = tweet.mediaDescription,
             let mediaUrlString = tweet.mediaUrlString
-            else { return }
+            else {
+                return
+        }
         
+        print(mediaImageUrl)
         self.urlImageView.af_setImage(withURL: mediaImageUrl)
         self.urlDescriptionLabel.text = mediaDescription
         self.urlLabel.text = mediaUrlString
