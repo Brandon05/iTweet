@@ -10,6 +10,8 @@ import UIKit
 import AFNetworking
 import SwiftLinkPreview
 import FaveButton
+import Kingfisher
+import AlamofireImage
 
 class TweetTableViewCell: UITableViewCell {
     
@@ -74,6 +76,11 @@ class TweetTableViewCell: UITableViewCell {
         likeButton.isSelected = false
         retweetButton.isSelected = false
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        urlImageView.image = nil
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -95,7 +102,8 @@ class TweetTableViewCell: UITableViewCell {
         // if there is a url, set up Swift Preview
         if tweet.displayURL != nil && tweet.displayURL != "" {
             //self.contentView.addSubview(webPreviewView)
-            setSwiftPreview(withTweet: tweet)
+            //setSwiftPreview(withTweet: tweet)
+            handleWebPreview(for: tweet)
             //addNib()
         } else {
             //webPreviewView.removeFromSuperview()
@@ -149,20 +157,62 @@ class TweetTableViewCell: UITableViewCell {
         //myWebPreviewView.addConstraints(constraints)
     }
     
+    func handleWebPreview(for tweet: Tweet) {
+        // if there is a url, set up Swift Preview
+        //        if tweet.displayURL != nil && tweet.displayURL != "" {
+        //            //self.contentView.addSubview(webPreviewView)
+        //            //setSwiftPreview(withTweet: tweet)
+        //            //addNib()
+        //        } else {
+        //            cell.webPreviewView.removeFromSuperview()
+        //            cell.tweetLabelBottom.constant = 6
+        //        }
+        //print(tweet.displayURL)
+        if tweet.displayURL == nil || tweet.displayURL == "" && self.webPreviewView != nil {
+            self.webPreviewView.isHidden = true
+            //cell.webPreviewView.removeFromSuperview()
+            self.tweetLabelBottom.constant = 6
+        } else {
+            //self.urlImageView.image = nil
+            self.webPreviewView.isHidden = false
+            //cell.addSubview(webPreviewView)
+            self.tweetLabelBottom.constant = 191.5
+            print(CacheType.memory.hashValue)
+            setSwiftPreview(withTweet: tweet)
+        }
+    }
+    
     // Sets up the data for Swift Preview class
     func setSwiftPreview(withTweet tweet: Tweet) {
-        linkPreview.preview(tweet.displayURL, onSuccess: { (result: [String : AnyObject]) in
-            let images = result["images"] as? [String]
-            //print("IMAGES: - \((URL(string: images![0])!))")
-            if images?.count != 0 {
-            let imageURL = URL(string: images![0])!
-            self.urlImageView.setImageWith(imageURL)
-            }
-            self.urlDescriptionLabel.text = result["description"] as? String
-            self.urlLabel.text = result["url"] as? String
-        }, onError: { (error) in
-            print(error)
-        })
+        
+        guard let mediaImageUrl = tweet.mediaImageUrl,
+            let mediaDescription = tweet.mediaDescription,
+            let mediaUrlString = tweet.mediaUrlString
+            else { return }
+        
+        self.urlImageView.af_setImage(withURL: mediaImageUrl)
+        self.urlDescriptionLabel.text = mediaDescription
+        self.urlLabel.text = mediaUrlString
+        // Current Working Code!!
+//        linkPreview.preview(tweet.displayURL, onSuccess: { (result: [String : AnyObject]) in
+//            DispatchQueue.main.async {
+//            
+//            let images = result["images"] as? [String]
+//            //print("IMAGES: - \((URL(string: images![0])!))")
+//            if images?.count != 0 {
+//            let imageURL = URL(string: images![0])!
+//            //self.urlImageView.setImageWith(imageURL)
+////            self.urlImageView.kf.indicatorType = .activity
+////            self.urlImageView.kf.setImage(with: imageURL, options: [.transition(.fade(0.2))])
+//                self.urlImageView.af_setImage(withURL: imageURL)
+//            }
+//            self.urlDescriptionLabel.text = result["description"] as? String
+//            self.urlLabel.text = result["url"] as? String
+//                
+//            }
+//        }, onError: { (error) in
+//            print(error)
+//        })
         
     }
     
@@ -186,7 +236,9 @@ class TweetTableViewCell: UITableViewCell {
         outerView.layer.cornerRadius = profileImageView.frame.width / 2
         outerView.layer.shadowPath = UIBezierPath(roundedRect: outerView.bounds, cornerRadius: profileImageView.frame.width / 2).cgPath
         
-        self.profileImageView.setImageWith(imageURL)
+        self.profileImageView.kf.indicatorType = .activity
+        self.profileImageView.kf.setImage(with: imageURL, options: [.transition(.fade(0.2))])
+        //self.profileImageView.setImageWith(imageURL)
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.layer.borderWidth = 3
         profileImageView.layer.borderColor = UIColor.darkGray.cgColor

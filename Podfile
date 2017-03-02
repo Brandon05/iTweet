@@ -15,4 +15,5 @@ target 'iTweet' do
     pod 'SwiftLinkPreview'
     pod 'FaveButton'
     pod 'Kingfisher', '~> 3.0'
+    pod 'AlamofireImage', '~> 3.1'
 end

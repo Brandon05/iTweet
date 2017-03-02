@@ -55,7 +55,7 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
         tweetCell.tweetButtonOverlay.tag = indexPath.row
         
         // Configure webPreviewView if there is a link
-        handleWebPreview(for: tweetCell, and: tweet)
+        //handleWebPreview(for: tweetCell, and: tweet)
         tweetCell.webViewButton.addGestureRecognizer(self.webViewTapGesture())
         tweetCell.webViewButton.tag = indexPath.row
         
@@ -72,7 +72,7 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
 //            cell.webPreviewView.removeFromSuperview()
 //            cell.tweetLabelBottom.constant = 6
 //        }
-        print(tweet.displayURL)
+        //print(tweet.displayURL)
         if tweet.displayURL == nil || tweet.displayURL == "" && cell.webPreviewView != nil {
             cell.webPreviewView.isHidden = true
             //cell.webPreviewView.removeFromSuperview()
@@ -81,6 +81,7 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
             cell.webPreviewView.isHidden = false
             //cell.addSubview(webPreviewView)
             cell.tweetLabelBottom.constant = 191.5
+            setSwiftPreview(for: cell, withTweet: tweet)
         }
     }
     

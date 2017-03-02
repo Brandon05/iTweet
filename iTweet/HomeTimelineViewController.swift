@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Kingfisher
+import AFNetworking
+import SwiftLinkPreview
 
 class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
@@ -15,6 +18,7 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
     
     var listFlowLayout = ListFlowLayout()
     var refreshControl: UIRefreshControl!
+    let linkPreview = SwiftLinkPreview()
     
     //let longPress = UILongPressGestureRecognizer(target: self, action: #selector(HomeTimelineViewController.onLongPress(_:)))
     
@@ -202,6 +206,31 @@ extension HomeTimelineViewController {
         timelineTableView.insertSubview(refreshControl, at: 0)
         refreshControl.backgroundColor = UIColor.black.withAlphaComponent(0.8)//UIColor(hexString: "#63AEEB")
         refreshControl.tintColor = UIColor.white
+    }
+}
+
+extension HomeTimelineViewController {
+    // Sets up the data for Swift Preview class
+    func setSwiftPreview(for cell: TweetTableViewCell, withTweet tweet: Tweet) {
+        linkPreview.preview(tweet.displayURL, onSuccess: { (result: [String : AnyObject]) in
+            DispatchQueue.main.async {
+                
+                let images = result["images"] as? [String]
+                //print("IMAGES: - \((URL(string: images![0])!))")
+                if images?.count != 0 {
+                    let imageURL = URL(string: images![0])!
+                    cell.urlImageView.setImageWith(imageURL)
+                    //            self.urlImageView.kf.indicatorType = .activity
+                    //            self.urlImageView.kf.setImage(with: imageURL, options: [.transition(.fade(0.2))])
+                }
+                cell.urlDescriptionLabel.text = result["description"] as? String
+                cell.urlLabel.text = result["url"] as? String
+                
+            }
+        }, onError: { (error) in
+            print(error)
+        })
+        
     }
 }
 

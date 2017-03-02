@@ -15,7 +15,7 @@ open class SwiftLinkPreview: NSObject {
     internal var url: URL!
     internal var text: String!
     internal var result: [String: AnyObject] = [:]
-    fileprivate var wasOnMainThread = true
+    fileprivate var wasOnMainThread = false
     fileprivate var task: URLSessionDataTask?
     fileprivate let session = URLSession.shared
     
@@ -29,7 +29,7 @@ open class SwiftLinkPreview: NSObject {
     open func preview(_ text: String!, onSuccess: @escaping ([String: AnyObject]) -> (), onError: @escaping (PreviewError) -> ()) {
         
         self.resetResult()
-        self.wasOnMainThread = Thread.isMainThread
+        //self.wasOnMainThread = Thread.isMainThread
         
         self.text = text
         
@@ -99,11 +99,11 @@ extension SwiftLinkPreview {
     
     // Extract first URL from text
     internal func extractURL() -> URL? {
-        print(self.text)
+        //print(self.text)
         let explosion = self.text.characters.split{$0 == " "}.map(String.init)
-        print(explosion)
+        //print(explosion)
         let pieces = explosion.filter({ $0.trim.isValidURL() })
-        print(pieces)
+        //print(pieces)
         let piece = pieces[0]
         
         if let url = URL(string: piece) {

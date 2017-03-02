@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftLinkPreview
 
 struct Tweet {
     
@@ -17,6 +18,10 @@ struct Tweet {
     var favoriteCount: Int = 0
     var user: User
     var displayURL: String?
+    var mediaImageUrl: URL?
+    var mediaDescription: String?
+    var mediaUrlString: String?
+    //var media: Media?
     var id: Int
 }
 
@@ -29,6 +34,10 @@ extension Tweet {
     init?(dictionary: NSDictionary) {
     
     var displayURL = ""
+        var mediaImageUrl: URL? = nil
+        var mediaDescription: String? = nil
+        var mediaUrlString: String? = nil
+        let linkPreview = SwiftLinkPreview()
         
         guard
         let text = dictionary["text"] as? String,
@@ -50,6 +59,27 @@ extension Tweet {
         let urls = entities["urls"] as? [NSDictionary]
         if urls?.count != 0 {
         displayURL = urls?[0]["expanded_url"] as! String
+            linkPreview.preview(displayURL, onSuccess: { (result: [String : AnyObject]) in
+                DispatchQueue.main.async {
+                    
+                    let images = result["images"] as? [String]
+                    //print("IMAGES: - \((URL(string: images![0])!))")
+                    if images?.count != 0 {
+                        mediaImageUrl = URL(string: images![0])!
+                        //self.urlImageView.setImageWith(imageURL)
+                        //            self.urlImageView.kf.indicatorType = .activity
+                        //            self.urlImageView.kf.setImage(with: imageURL, options: [.transition(.fade(0.2))])
+                        //self.urlImageView.af_setImage(withURL: imageURL)
+                    }
+                    mediaDescription = result["description"] as? String
+                    mediaUrlString = result["url"] as? String
+                    print(mediaImageUrl)
+                    print(mediaDescription)
+                    print(mediaUrlString)
+                }
+            }, onError: { (error) in
+                print(error)
+            })
         }
         
         
@@ -59,6 +89,9 @@ extension Tweet {
         self.user = user
         self.displayURL = displayURL
         self.id = id
+        self.mediaImageUrl = mediaImageUrl
+        self.mediaDescription = mediaDescription
+        self.mediaUrlString = mediaUrlString
         
         // Tweet TimeStamp
         
@@ -87,6 +120,9 @@ extension Tweet {
     
     
 }
+
+// Extension to download media:
+
 
 /////////////////////
 /// MARK:- Original code to check media url

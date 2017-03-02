@@ -16,6 +16,9 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
+  - Alamofire (4.1.0)
+  - AlamofireImage (3.1.0):
+    - Alamofire (~> 4.0)
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
   - FaveButton (2.0.2)
@@ -25,6 +28,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworkActivityLogger (from `https://github.com/AFNetworking/AFNetworkActivityLogger.git`, branch `3_0_0`)
   - AFNetworking (~> 3.0)
+  - AlamofireImage (~> 3.1)
   - BDBOAuth1Manager (~> 2.0)
   - FaveButton
   - Kingfisher (~> 3.0)
@@ -43,11 +47,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: e77f68d014becb33c4306a23f56a64906ff72670
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  Alamofire: e266cf991b933498df791e645e0d8ac294492153
+  AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
   FaveButton: e26f7964669b4befda7d92a6779be7b2a70ab161
   Kingfisher: 64ef28c6d3d6f344e3ae2d7f5c9da80439505d99
   SwiftLinkPreview: 977461879ae31f9e2d1bf2fafba0553d99eacbb9
 
-PODFILE CHECKSUM: 49fce84352a989477de520670a188c22d5c69294
+PODFILE CHECKSUM: ee0a0e1c25a2b5224c7d5edde8ce28e8b6254497
 
 COCOAPODS: 1.1.1

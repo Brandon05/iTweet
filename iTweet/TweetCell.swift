@@ -101,7 +101,7 @@ class TweetCell: UITableViewCell, FaveButtonDelegate {
     func setSwiftPreview(withTweet tweet: Tweet) {
         linkPreview.preview(tweet.displayURL, onSuccess: { (result: [String : AnyObject]) in
             let images = result["images"] as? [String]
-            print("IMAGES: - \((URL(string: images![0])!))")
+            //print("IMAGES: - \((URL(string: images![0])!))")
             let imageURL = URL(string: images![0])!
             self.urlImageView.setImageWith(imageURL)
             self.urlDescriptionLabel.text = result["description"] as? String
