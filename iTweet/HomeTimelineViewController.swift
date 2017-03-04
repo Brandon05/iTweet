@@ -11,35 +11,22 @@ import Kingfisher
 import AFNetworking
 import SwiftLinkPreview
 
-class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+class HomeTimelineViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
-    @IBOutlet var timelineCollectionView: UICollectionView!
     @IBOutlet var timelineTableView: UITableView!
     
     var listFlowLayout = ListFlowLayout()
     var refreshControl: UIRefreshControl!
     let linkPreview = SwiftLinkPreview()
     
-    //let longPress = UILongPressGestureRecognizer(target: self, action: #selector(HomeTimelineViewController.onLongPress(_:)))
-    
     var tweets = [Tweet]() {
         didSet {
-            //timelineCollectionView.reloadData()
             timelineTableView.reloadData()
-            //let range = Range(uncheckedBounds: (lower: 0, upper: self.timelineTableView.numberOfSections))
-            //self.timelineTableView.reloadSections(IndexSet(integersIn: range), with: .none)
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // CollectionView Settings
-        //timelineCollectionView.delegate = self
-        //timelineCollectionView.dataSource = self
-        
-        //timelineCollectionView.collectionViewLayout = listFlowLayout
-        //timelineCollectionView.register(TweetCell.self)
         
         //TableView Settings
         timelineTableView.delegate = self
@@ -52,16 +39,6 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
         // Self-sizing magic!
         self.timelineTableView.rowHeight = UITableViewAutomaticDimension
         self.timelineTableView.estimatedRowHeight = 250 //Set this to any value that works for you.
-        
-        
-        if let flowLayout = timelineCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            //flowLayout.estimatedItemSize = CGSize(width: 200, height: 200)
-        }
-        
-        // TweetCell Gesture Delegate & Target
-        //longPress.delegate = self
-        //longPress.addTarget(self, action: #selector(HomeTimelineViewController.onLongPress(_:)))
-        //longPress.minimumPressDuration = 0.2
         
         //Refresh Control
         addRefreshControl()
@@ -90,9 +67,6 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        timelineTableView.layoutSubviews()
-//        timelineTableView.setNeedsUpdateConstraints()
-//        timelineTableView.updateConstraints()
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,18 +78,9 @@ class HomeTimelineViewController: UIViewController, UICollectionViewDelegateFlow
         getCurrentTimeline()
     }
     
-    //MARK:- NavBar
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
-    
-//    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let cell = collectionView.cellForItem(at: indexPath)
-//        
-//        return CGSize(width: collectionView.frame.width - 6, height: 300)
-//    }
-
     
     // MARK: - Navigation
 
