@@ -177,7 +177,7 @@ class TweetTableViewCell: UITableViewCell {
             self.webPreviewView.isHidden = false
             //cell.addSubview(webPreviewView)
             self.tweetLabelBottom.constant = 191.5
-            print(CacheType.memory.hashValue)
+            
             setSwiftPreview(withTweet: tweet)
         }
     }
@@ -192,10 +192,10 @@ class TweetTableViewCell: UITableViewCell {
                 return
         }
         
-        print(mediaImageUrl)
-        self.urlImageView.af_setImage(withURL: mediaImageUrl)
-        self.urlDescriptionLabel.text = mediaDescription
-        self.urlLabel.text = mediaUrlString
+        print(tweet.mediaImageUrl)
+        self.urlImageView.af_setImage(withURL: tweet.mediaImageUrl!)
+        self.urlDescriptionLabel.text = tweet.mediaDescription
+        self.urlLabel.text = tweet.mediaUrlString
         // Current Working Code!!
 //        linkPreview.preview(tweet.displayURL, onSuccess: { (result: [String : AnyObject]) in
 //            DispatchQueue.main.async {

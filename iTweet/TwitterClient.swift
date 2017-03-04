@@ -118,7 +118,7 @@ extension TwitterClient {
         let _ = TwitterClient.sharedInstance?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
             print(TwitterClient.sharedInstance?.isAuthorized)
             guard let dictionaries = response as? [NSDictionary] else {return}
-            //print(dictionaries)
+            print(dictionaries)
             // flatMap flattens and maps array of dictionaries
             //let tweets = dictionaries.flatMap {dict in (Tweet.init(dictionary: dict))}
             
@@ -130,16 +130,19 @@ extension TwitterClient {
             let tweetArray = dictionaries.flatMap(Tweet.init)
             
             // Set up async web preview data
-            setUpWebPreview(with: tweetArray, completion: { (result) in
-                switch result {
-                case .success(let tweets):
-                    // Return new tweet array with web preview data
-                    completion(Result.success(tweets))
-                case .failure(let error):
-                    completion(Result.failure(error))
-                }
-            })
+//            setUpWebPreview(with: tweetArray, completion: { (result) in
+//                switch result {
+//                case .success(let tweets):
+//                    // Return new tweet array with web preview data
+//                    //completion(Result.success(tweets))
+//                    print(tweets)
+//                case .failure(let error):
+//                    //completion(Result.failure(error))
+//                    print(error)
+//                }
+//            })
             
+            completion(Result.success(tweetArray))
             
             
         }, failure: { (task: URLSessionDataTask?, error: Error?) in
@@ -151,7 +154,7 @@ extension TwitterClient {
 }
 
 extension TwitterClient {
-    class func setUpWebPreview(with tweetArray: [Tweet], completion: @escaping (Result<[Tweet]>) -> Void) {
+    class func setUpWebPreview(with tweetArray: [Tweet], completion: @escaping (Result<Any>) -> Void) {
         let linkPreview = SwiftLinkPreview()
         let mutableDictionary = [NSMutableDictionary]()
         var tweets = [Tweet]()
@@ -175,7 +178,7 @@ extension TwitterClient {
                 tweets.append(tweet)
                 print(tweets.count)
                 if tweets.count == 10 {
-                completion(Result.success(tweets))
+                completion(Result.success("finished 10"))
                 }
             }
             
