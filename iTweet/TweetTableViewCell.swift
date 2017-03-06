@@ -193,7 +193,9 @@ class TweetTableViewCell: UITableViewCell {
         }
         
         print(tweet.mediaImageUrl)
-        self.urlImageView.af_setImage(withURL: tweet.mediaImageUrl!)
+        //self.urlImageView.af_setImage(withURL: tweet.mediaImageUrl!)
+        self.urlImageView.kf.indicatorType = .activity
+        self.urlImageView.kf.setImage(with: tweet.mediaImageUrl!, options: [.transition(.fade(0.2))])
         self.urlDescriptionLabel.text = tweet.mediaDescription
         self.urlLabel.text = tweet.mediaUrlString
         // Current Working Code!!

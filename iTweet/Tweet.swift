@@ -51,7 +51,7 @@ class Tweet {
         else {
             return nil
         }
-        
+        print(userData)
         // These can be nil, will break guard statement
         self.entities = dictionary["entities"] as! NSDictionary
         self.urls = entities?["urls"] as? [NSDictionary]
@@ -66,7 +66,7 @@ class Tweet {
                     let images = result["images"] as? [String]
                     //print("IMAGES: - \((URL(string: images![0])!))")
                     if images?.count != 0 {
-                        print(images)
+                        //print(images)
                         if let url = URL(string: images![0]) {
                         mediaImageUrl = url
                         }
@@ -77,9 +77,9 @@ class Tweet {
                     }
                     mediaDescription = result["description"] as? String
                     mediaUrlString = result["url"] as? String
-                    print(mediaImageUrl)
-                    print(mediaDescription)
-                    print(mediaUrlString)
+//                    print(mediaImageUrl)
+//                    print(mediaDescription)
+//                    print(mediaUrlString)
                     self.mediaImageUrl = mediaImageUrl
 //                    self.mediaDescription = mediaDescription
 //                    self.mediaUrlString = mediaUrlString
@@ -96,29 +96,8 @@ class Tweet {
             }, onError: { (error) in
                 print(error)
             })
+            }
         }
-//            setUpPreview(withLink: displayURL, completion: { (result) in
-//                switch result {
-//                case .success(let imageUrl):
-//                    //let url = URL(string: imageUrl as! String)!
-//                    mediaImageUrl = imageUrl as? URL
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            })
-        } else {
-//            self.text = text
-//            self.retweetCount = retweetCount
-//            self.favoriteCount = favoriteCount
-//            self.user = user
-//            self.displayURL = displayURL
-//            self.id = id
-//            self.mediaImageUrl = mediaImageUrl
-//            self.mediaDescription = mediaDescription
-//            self.mediaUrlString = mediaUrlString
-
-        }
-        
         
         self.text = text
         self.retweetCount = retweetCount

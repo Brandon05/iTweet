@@ -14,10 +14,13 @@ import SwiftLinkPreview
 class HomeTimelineViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet var timelineTableView: UITableView!
+    @IBOutlet var tweetButton: UIButton!
     
     var listFlowLayout = ListFlowLayout()
     var refreshControl: UIRefreshControl!
     let linkPreview = SwiftLinkPreview()
+    var userDidTweet = false
+    var userTweet: Tweet?
     
     var tweets = [Tweet]() {
         didSet {

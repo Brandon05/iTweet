@@ -91,3 +91,24 @@ extension HomeTimelineViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
 }
+
+extension ProfileViewController {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard tweets != nil else { return 1 }
+        
+        return tweets.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let tweetCell = tableView.dequeueReusableCell(forIndexPath: indexPath) as TweetTableViewCell
+        let tweet = tweets[indexPath.row]
+        
+        // Add Targets for segue to TweetDetailViewController
+        //tweetCell.actionView.addGestureRecognizer(longPress)
+        tweetCell.tweetButtonOverlay.addGestureRecognizer(self.longPressGesture())
+        tweetCell.tweetButtonOverlay.tag = indexPath.row
+        
+        return tweetCell.bind(tweet)
+    }
+}

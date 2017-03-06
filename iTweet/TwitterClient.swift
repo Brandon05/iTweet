@@ -116,18 +116,18 @@ extension TwitterClient {
     
     class func getHomeTimeline(completion: @escaping (Result<[Tweet]>) -> Void) {
         let _ = TwitterClient.sharedInstance?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
-            print(TwitterClient.sharedInstance?.isAuthorized)
+            
             guard let dictionaries = response as? [NSDictionary] else {return}
             print(dictionaries)
             // flatMap flattens and maps array of dictionaries
-            //let tweets = dictionaries.flatMap {dict in (Tweet.init(dictionary: dict))}
+            let tweets = dictionaries.flatMap {dict in (Tweet.init(dictionary: dict))}
             
             // Get web preview
             //let displayUrl = dictionaries.flatMap { return $0[""] }
             //setUpWebPreview(with: <#T##String#>, completion: <#T##(Result<NSMutableDictionary>) -> Void#>)
             
             // Initial array of tweets before web preview data
-            let tweetArray = dictionaries.flatMap(Tweet.init)
+            //let tweetArray = dictionaries.flatMap(Tweet.init)
             
             // Set up async web preview data
 //            setUpWebPreview(with: tweetArray, completion: { (result) in
@@ -142,7 +142,7 @@ extension TwitterClient {
 //                }
 //            })
             
-            completion(Result.success(tweetArray))
+            completion(Result.success(tweets))
             
             
         }, failure: { (task: URLSessionDataTask?, error: Error?) in
@@ -290,11 +290,76 @@ extension TwitterClient {
 }
 
 
+////////////////////////////
+///// USER Lookup //////////
+////////////////////////////
 
+extension TwitterClient {
+    
+    class func getUser(withID id: Int, completion: @escaping (Result<Any>) -> Void) {
+        let parameters = ["user_id" : id]
+        
+        let _ = TwitterClient.sharedInstance?.get("1.1/users/show.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            if let responseJSON = response as? NSDictionary {
+                print(responseJSON)
+                completion(Result.success(responseJSON))
+            } else {
+                print(response)
+            }
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print(error)
+            completion(Result.failure(error))
+        })
+        
+    }
+    
+    class func getUserTimeline(forID id: Int, completion: @escaping (Result<Any>) -> Void) {
+        
+        let parameters = ["user_id" : id]
+        
+        let _ = TwitterClient.sharedInstance?.get("1.1/statuses/user_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            guard let dictionaries = response as? [NSDictionary] else {return}
+            print(dictionaries)
+            // flatMap flattens and maps array of dictionaries
+            let tweets = dictionaries.flatMap {dict in (Tweet.init(dictionary: dict))}
+            
+            completion(Result.success(tweets))
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print(error)
+            completion(Result.failure(error))
+        })
+        
+    }
+}
 
-
-
-
+extension ProfileViewController {
+    
+    func getUser(withID id: Int) {
+        TwitterClient.getUser(withID: id) { (user) in
+            switch user {
+            case .success(let user):
+                print(user)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func getUserTimeline(forID id: Int) {
+        TwitterClient.getUserTimeline(forID: id) { (timeline) in
+            switch timeline {
+            case .success(let tweets):
+                print(tweets)
+                self.tweets = tweets as! [Tweet]
+//                if userDidTweet == true {
+//                    self.tweets.append(userTweet)
+//                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}
 
 
 
