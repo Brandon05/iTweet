@@ -101,10 +101,10 @@
                                                 <color key="value" red="0.83529411760000005" green="0.20392156859999999" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="dotFirstColor">
-                                                <color key="value" red="0.0" green="0.71021713040000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="circleFromColor">
-                                                <color key="value" red="0.0" green="0.71021713040000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.28455078119999999" green="0.28455078119999999" blue="0.28455078119999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="circleToColor">
                                                 <color key="value" red="0.83529411760000005" green="0.20392156859999999" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
@@ -122,13 +122,13 @@
                                                 <color key="value" red="0.15612066329999999" green="0.87609375" blue="0.23438090310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="dotFirstColor">
-                                                <color key="value" red="0.0" green="0.71021713040000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.28455078119999999" green="0.28455078119999999" blue="0.28455078119999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="circleFromColor">
-                                                <color key="value" red="0.0" green="0.71021713040000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="circleToColor">
-                                                <color key="value" red="0.83529411760000005" green="0.20392156859999999" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.15612066329999999" green="0.87609375" blue="0.23438090310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -148,7 +148,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.49803921569999998" green="0.1019607843" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.98431372549999996" green="0.98823529409999999" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="d8X-lv-dIz" firstAttribute="centerY" secondItem="WN5-2M-sIO" secondAttribute="centerY" id="30S-Oq-rFf"/>
                                     <constraint firstItem="d8X-lv-dIz" firstAttribute="leading" secondItem="WN5-2M-sIO" secondAttribute="leading" constant="115" id="FC8-R7-7df"/>

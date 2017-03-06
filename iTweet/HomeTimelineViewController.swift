@@ -101,7 +101,28 @@ class HomeTimelineViewController: UIViewController, UIScrollViewDelegate, UIGest
                 else { return }
             print(button.tag)
             print(tweets[button.tag])
-            //destination.user = tweets[button.tag].user
+            let indexPath = IndexPath(row: button.tag, section: 0)
+            let cell = timelineTableView.cellForRow(at: indexPath) as? TweetTableViewCell
+            let tweet = tweets[button.tag]
+            destination.tweet = tweet
+            //print(cell?.tweetLabel.text)
+            
+            // TODO:- fix these if statements
+            // ISSUE: - unwrapping optional
+            if let url = tweet.mediaImageUrl {
+                print(url)
+                
+                //destination.webPreviewImageView.setImageWith(tweet.mediaImageUrl!)
+                //destination.webPreviewImageView.af_setImage(withURL: url)
+                //destination.webPreviewImageView.kf.setImage(with: tweet.mediaImageUrl!)
+            }
+            if let description = tweet.mediaDescription {
+                print(description)
+                //destination.descriptionLabel.text = description
+            }
+            if tweet.mediaUrlString != nil {
+                //destination.urlLabel.text = tweet.mediaUrlString
+            }
         }
         
         if segue.identifier == "WebSegue" {
