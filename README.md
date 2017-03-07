@@ -108,7 +108,7 @@ Here's a walkthrough of implemented user stories:
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## GIF LINK
-http://imgur.com/a/K9Sp9
+http://i.imgur.com/cgY0maU.gif
 
 ## Notes
 
