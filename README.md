@@ -25,7 +25,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough:
 
-<img src='http://imgur.com/a/6YLBO.gif' title='Video Walkthrough' width='' alt='http://imgur.com/a/6YLBO' />
+<img src='/LvdM4AJ - Imgur.gif?raw=true' title='Video Walkthrough' width='' alt='http://imgur.com/a/6YLBO' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -78,7 +78,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough:
 
-<img src='' title='Video Walkthrough' width='' alt='http://i.imgur.com/cgY0maU.gif' />
+<img src='/cgY0maU - Imgur.gif?raw=true' title='Video Walkthrough' width='' alt='http://i.imgur.com/cgY0maU.gif' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
